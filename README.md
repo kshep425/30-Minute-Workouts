@@ -15,6 +15,12 @@ Evidence based research shows that [30 minutes of exercise](https://www.genesisf
 * [Mike Havrilak](https://github.com/MHavrilak)
 * [Jacob Habtemariam](https://github.com/JEmnetu)
 
+## Credits
+TBD
+
+## Dependencies
+TBD
+
 ## License
 MIT License
 
