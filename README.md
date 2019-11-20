@@ -3,6 +3,8 @@
 
 ## Contributors
 [Keisha Shepherd](https://github.com/kshep425/)
-[Gregg vonBushBerger](https://github.com/)
-[Mike Havrilak](https://github.com/)
-Jacob Habtemariam](https://github.com/)
+[Gregg vonBushBerger](https://github.com/gvonbush)
+[Mike Havrilak](https://github.com/MHavrilak)
+[Jacob Habtemariam](https://github.com/JEmnetu)
+
+
