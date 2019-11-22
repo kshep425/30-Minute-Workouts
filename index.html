@@ -1,30 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="assets/css/style.css" rel="stylesheet">
-        <title>30 Minute Workout</title>
-    </head>
-    <body>
-        <div id="title_section">
-            <header>30 Minute Workout</header>
-            <h1>Survival of the fittest!</h1>
-        </div>
-                <div id="work_out_page" hidden>
-            <div id="timer_section"></div>
-            <div id="exercise_section"></div>
-            <div id="exercise_timer_section"></div>
-        </div>
-        <div id="work_out_complete_page" hidden>
-            <div id="success_section"></div>
-            <div id="share_section"></div>
-            <div id="challenge_section"></div>
-        </div>
-        <div id="start_page">
-                <div id="workout_type_section"></div>
-                <div id="music_type_section"></div>
-                <div id="start_section"></div>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link href="assets/css/style.css" rel="stylesheet">
+    <title>30 Minute Workout</title>
+</head>
+
+<body>
+    <section class="hero is-primary is-small has-text-justified">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    30 Minute Workout!
+                </h1>
+                <h2 class="subtitle">
+                    Survival of the Fittest
+                </h2>
             </div>
-    </body>
+        </div>
+    </section>
+    <section class="container" id="profile">Profile
+            <form>
+                    First name:<br>
+                    <input type="text" name="firstname"><br>
+                    Last name:<br>
+                    <input type="text" name="lastname"><br>
+                    Age<br>
+                    <input type="number" name="age"><br>
+                    Height<br>
+                    <input type="number" name="height"><br>
+                    Weight<br>
+                    <input type="number" name="weight"><br>
+                    Sex<br>
+                    <input type="text" name="sex"><br>
+                    Email<br>
+                    <input type="email" name="email"><br>
+                    Goal<br>
+                    <input type="text" name="text"><br>
+                  </form>
+    </section>
+    <section>
+        <input class="slider is-fullwidth" step="1" min="0" max="100" value="50" type>
+    </section>
+
+
+    <div id="work_out_page" hidden>
+        <div id="timer_section"></div>
+        <div id="exercise_section"></div>
+        <div id="exercise_timer_section"></div>
+    </div>
+    <div id="work_out_complete_page" hidden>
+        <div id="success_section"></div>
+        <div id="share_section"></div>
+        <div id="challenge_section"></div>
+    </div>
+    <div id="start_page">
+        <div id="workout_type_section"></div>
+        <div id="music_type_section"></div>
+        <div id="start_section"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+
 </html>
