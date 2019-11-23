@@ -1,0 +1,36 @@
+h1 {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+#profile {
+    text-align: center;
+    text-emphasis: bold;
+}
+
+#start-page {
+    align-self: center;
+    margin:auto;
+
+
+}
+
+button {
+    color: rgb(0, 183, 255)
+}
+
+
+form {
+    margin-left: 30%;
+    margin-right: 30%;
+    background-color: aqua;
+}
+
+input {
+    width: 40%;
+}
