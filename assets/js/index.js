@@ -6,7 +6,6 @@ const wger_api = {
 const query_data = {
     format: "json",
     status: "2",
-    language: "2"
 }
 
 const wger_query = function(endpoint){
@@ -16,13 +15,21 @@ const wger_query = function(endpoint){
             xhr.setRequestHeader ("Authorization", "Token " + wger_api.key);
         },
         url: wger_api.uri + endpoint,
-        //data: query_data,
+        data: query_data,
         method: "GET"
     }).then(function(response){
         console.log(response);
+        set_exercises(response)
         return response
     })
 }
+
+
+function set_exercises(exercise){
+    ex_name = exercise.name
+    console.log(exercise.name)
+}
+
 
 const post_data = {
     "license_author": "Survival of the Fittest",
