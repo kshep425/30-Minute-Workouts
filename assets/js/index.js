@@ -26,8 +26,14 @@ const wger_query = function(endpoint){
 
 
 function set_exercises(exercise){
-    ex_name = exercise.name
-    console.log(exercise.name)
+    ex = {
+        name: exercise.name,
+        id: exercise.id,
+        description: exercise.description
+    }
+
+    $("#exercise_name").text(ex.name)
+    $("#exercise_description").text(ex.description)
 }
 
 
