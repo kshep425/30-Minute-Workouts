@@ -15,22 +15,32 @@ h2 {
 
 #start-page {
     align-self: center;
-    margin:auto;
-    
-        
+    width:100%;
+            
+}
+
+#start {
+    align-self: auto;
+    margin-left: 45%;
 }
 
 button {
-    color: rgb(0, 183, 255)
+    color:#00d1b2;
 }
-
-
+    
 form {
     margin-left: 30%;
     margin-right: 30%;
-    background-color: aqua;
+    background-color:#00d1b2;
 }
 
 input {
     width: 40%;
 }
+
+@media only screen and (max-width: 760px) {
+    #start {
+        align-self: auto;
+        margin-left: 35%;
+    }
+  }
