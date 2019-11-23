@@ -2,25 +2,60 @@
 <html lang="en">
 
 <head>
-    <title>30 Minute Workout</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="assets/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link href="assets/css/style.css" rel="stylesheet">
+    <title>30 Minute Workout</title>
 </head>
 
 <body>
-    <div id="title_section">
-        <h1>30 Minute Workout</h1>
-        <h2>Survival of the fittest!</h2>
-    </div>
-    <div id="start_page">
-        <div id="workout_type_section"></div>
-        <div id="music_type_section"></div>
-        <div id="start_section"></div>
-    </div>
+    <section class="hero is-primary is-small has-text-justified">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    30 Minute Workout!
+                </h1>
+                <h2 class="subtitle">
+                    Survival of the Fittest
+                </h2>
+            </div>
+        </div>
+    </section>
+    <section class="container is fluid" id="profile">Profile
+        <form>
+            First name:<br>
+            <input type="text" name="firstname"><br>
+            Last name:<br>
+            <input type="text" name="lastname"><br>
+            Age<br>
+            <input type="number" name="age"><br>
+            Height<br>
+            <input type="number" name="height"><br>
+            Weight<br>
+            <input type="number" name="weight"><br>
+            Sex<br>
+            <input type="text" name="sex"><br>
+            Email<br>
+            <input type="email" name="email"><br>
+            Goal<br>
+            <input type="text" name="text"><br>
+            Intensity Preference<br>
+            <input type="text" name="text"><br>
+        </form>
+    </section>
+
     <div id="work_out_page" hidden>
+        <h1>Workout One</h1>
+        <h2>GO!</h2>
+        <h3 id="exercise_type"></h3>
+        <img id="exercise_img">
+        <h4 id="exercise_time"></h4>
+        <h4 id="description">Workout Description</h4>
+        <p>>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto voluptatibus facere
+            numquam quam non eaque. Maxime quae, ea similique velit dolor repellat quaerat consequuntur dolores
+            accusamus sunt, unde veniam ex.</p>
         <div id="timer_section"></div>
         <div id="exercise_section"></div>
         <div id="exercise_timer_section"></div>
@@ -30,7 +65,12 @@
         <div id="share_section"></div>
         <div id="challenge_section"></div>
     </div>
-
+    <div id="start_page">
+        <button class="button is primary is rounded is-centered" type="input" id="start">Start Workout!</button>
+        <div id="workout_type_section"></div>
+        <div id="music_type_section"></div>
+        <div id="start_section"></div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/script.js"></script>
