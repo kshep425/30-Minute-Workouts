@@ -17,6 +17,7 @@ Evidence based research shows that [30 minutes of exercise](https://www.genesisf
 
 ## Credits
 * [Geeks for Geeks](https://www.geeksforgeeks.org)
+* [Tutorials Point](https://tutorialpoint.com)
 * [Donald Hesler](https://www.linkedin.com/in/davishesler/)
 * [Jono Augustine](https://github.com/JonoAugustine)
 
