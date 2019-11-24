@@ -16,20 +16,20 @@ const query_data = {
  * Get exercises using wger_query
  * @param {string} endpoint
  */
-const wger_query = function(endpoint){
+const wger_query = function (endpoint) {
 
     $.ajax({
         beforeSend: function (xhr) {
-            xhr.setRequestHeader ("Authorization", "Token " + wger_api.key);
-            xhr.setRequestHeader ("Accept", "application/json;indent=4")
+            xhr.setRequestHeader("Authorization", "Token " + wger_api.key);
+            xhr.setRequestHeader("Accept", "application/json;indent=4")
         },
         url: wger_api.uri + endpoint,
         data: query_data,
         method: "GET"
-    }).then(function(response){
+    }).then(function (response) {
         console.log(response);
         set_exercises(response);
-    }).fail(function(err){
+    }).fail(function (err) {
         console.log("Query Failed!")
         console.log(err)
         alert("Query Failed!")
@@ -40,15 +40,15 @@ const wger_query = function(endpoint){
  * Set Exercise info to display during time interval
  * @param {object} exercise This is the response from the exercise/id endpoint
  */
-function set_exercises(exercise){
+function set_exercises(exercise) {
     ex = {
         name: exercise.name,
         id: exercise.id,
         description: exercise.description
     }
-
+    $("#break_or_go").text("GO!")
     $("#exercise_name").text(ex.name)
-    $("#exercise_description").text(ex.description)
+    $("#exercise_description").html(ex.description)
 }
 
 /**
@@ -61,9 +61,10 @@ function set_exercises(exercise){
  * TODO: Get break time from profile settings.
  *
  */
-function its_break_time(){
-    let break_time = 15;
-    $("#exercise_name").text("BREAK TIME!")
+function its_break_time() {
+    let break_time = 5;
+    $("#break_or_go").text("BREAK!")
+    $("#exercise_name").text("")
     $("#exercise_description").text("Next exercise is: ")
     display_time(break_time, "#exercise_break_section")
 }
@@ -75,14 +76,14 @@ function its_break_time(){
  * TODO: Add 3,2,1 beeps with big number flashes when timer is ending
  *
  */
-function display_time(time_left, section){
+function display_time(time_left, section) {
     console.log("Display " + time_left + " on " + section)
     let exercise_interval = setInterval(() => {
         $(section).text(convert_seconds_to_time(time_left))
-        if (time_left <= 0 ){
+        if (time_left <= 0) {
             clearInterval(exercise_interval)
         }
-        time_left = time_left-1
+        time_left = time_left - 1
     }, 1000)
 }
 
@@ -103,4 +104,32 @@ function convert_seconds_to_time(given_seconds) {
         + ':' + seconds.toString().padStart(2, '0');
 
     return time_string;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms * 1000));
+}
+
+async function start_exercise() {
+
+    let interval_time = 10;
+    let break_time = 5;
+    let exercise_ids = [91, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
+
+    display_time(30*60, "#total_workout_time");
+
+    for (let i = 1; i < exercise_ids.length; i++) {
+        id = exercise_ids[i]
+        console.log("Start Exercise: " + id);
+
+        wger_query("exercise/" + id);
+        display_time(interval_time, "#exercise_timer_section");
+
+        setTimeout(() => {
+            console.log("Start Break");
+            its_break_time();
+        }, interval_time * 1000);
+
+        await sleep(interval_time + break_time);
+    }
 }
