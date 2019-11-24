@@ -90,7 +90,7 @@ function display_time(time_left, section) {
 /**  Convert seconds to Time
 * @param {number} given_seconds
 * @returns {string} Time String formatted hh:mm:ss
-* referenced: https://www.geeksforgeeks.org/how-to-convert-seconds-to-time-string-format-hhmmss-using-javascript/
+* referenced on 11/24/2019: https://www.geeksforgeeks.org/how-to-convert-seconds-to-time-string-format-hhmmss-using-javascript/
 */
 function convert_seconds_to_time(given_seconds) {
 
@@ -105,11 +105,22 @@ function convert_seconds_to_time(given_seconds) {
 
     return time_string;
 }
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms * 1000));
+/**
+ *sleep function pauses before doing the next action
+ * @param {number} seconds (length of time to sleep)
+ * referenced on 11/24/2019: https://www.tutorialspoint.com/javascript-sleep-function
+ */
+function sleep(seconds) {
+    return new Promise(resolve => setTimeout(resolve, seconds * 1000));
 }
-
+/**
+ * start exercise
+ *
+ * Get the break and interval times and exercise ids
+ * For each exercise query the exercise id using wger api
+ * Display the exercise name and info for the interval time
+ * Break before moving on to next exercise
+ */
 async function start_exercise() {
 
     let interval_time = 10;
