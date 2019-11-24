@@ -16,10 +16,12 @@ Evidence based research shows that [30 minutes of exercise](https://www.genesisf
 * [Jacob Habtemariam](https://github.com/JEmnetu)
 
 ## Credits
-TBD
+* [Geeks for Geeks](https://www.geeksforgeeks.org)
+* [Donald Hesler](https://www.linkedin.com/in/davishesler/)
+* [Jono Augustine](https://github.com/JonoAugustine)
 
 ## Dependencies
-TBD
+* [Wger Workout Manager API](https://wger.de/en/software/api)
 
 ## License
 MIT License
