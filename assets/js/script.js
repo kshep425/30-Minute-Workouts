@@ -6,21 +6,20 @@ function excercise() {
 $("#start").click(function start_exercise(){
     $("#work_out_page").css({"display":"block"})
     $("#profile").css({"display":"none"})
+    $("#start").css({"display":"none"})
+
+    let interval_time = 10;
+    display_time(30*60, "#total_workout_time")
     excercise_ids = [91];
     excercise_ids.forEach(id => {
         wger_query("exercise/91");
-        //let  = 45;
-        display_time(45)
+        console.log("Start Exercise")
+        display_time(interval_time, "#exercise_timer_section")
+        setTimeout(()=>{
+            console.log("Start Break")
+            its_break_time()
+        }, interval_time*1000)
+
     });
 
 })
-
-function display_time(time_left){
-    setInterval(function(){
-
-    $("#timer_section").text(time_left)
-    if (time_left <= 0 ){
-        clearInterval()
-    }
-    time_left = time_left-1
-},1000)}
