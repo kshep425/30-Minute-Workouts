@@ -145,12 +145,13 @@ function sleep(seconds) {
  * Break before moving on to next exercise
  */
 async function start_exercise() {
-
-    let interval_time = 10;
-    let break_time = 5;
+    // demo_mode: 3 min total; 20 sec interval; 10 sec break;
+    let total_workout_time = 3;
+    let interval_time = 20;
+    let break_time = 10;
     let exercise_ids = [4, 91, 93, 60, 128, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
 
-    display_time(30*60, "#total_workout_time");
+    display_time( total_workout_time * 60, "#total_workout_time");
 
     for (let i = 0; i < exercise_ids.length; i++) {
         id = exercise_ids[i]
