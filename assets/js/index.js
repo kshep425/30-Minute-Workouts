@@ -99,9 +99,11 @@ function its_break_time() {
  */
 function display_time(time_left, section) {
     console.log("Display " + time_left + " on " + section)
+    $(section).show();
     let exercise_interval = setInterval(() => {
         $(section).text(convert_seconds_to_time(time_left))
         if (time_left <= 0) {
+            $(section).hide()
             clearInterval(exercise_interval)
         }
         time_left = time_left - 1
@@ -144,9 +146,9 @@ function sleep(seconds) {
  */
 async function start_exercise() {
 
-    let interval_time = 30;
-    let break_time = 10;
-    let exercise_ids = [4, 91, 32, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
+    let interval_time = 10;
+    let break_time = 5;
+    let exercise_ids = [4, 91, 32, 93, 60, 128, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
 
     display_time(30*60, "#total_workout_time");
 
@@ -160,7 +162,7 @@ async function start_exercise() {
 
         setTimeout(() => {
             console.log("Start Break");
-            $("[exercise_id=" + id + "]").hide()
+            $("[exercise_id=" + id + "]").hide();
             its_break_time();
         }, interval_time * 1000);
 
