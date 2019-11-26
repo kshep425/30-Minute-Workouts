@@ -148,7 +148,7 @@ async function start_exercise() {
 
     let interval_time = 10;
     let break_time = 5;
-    let exercise_ids = [4, 91, 32, 93, 60, 128, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
+    let exercise_ids = [4, 91, 93, 60, 128, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
 
     display_time(30*60, "#total_workout_time");
 
