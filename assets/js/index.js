@@ -7,8 +7,7 @@ const query_data = {
     format: "json",
     status: "2",
     language: "2",
-    limit: '50'
-
+    limit: '8'
 }
 
 const wger_query = function(endpoint) {
@@ -24,32 +23,62 @@ const wger_query = function(endpoint) {
         // console.log(response);
         // return response
         var crunchList = [];
-        for (var i = 0; i < 50; i++) {
+        for (var i = 0; i < 8; i++) {
             let img_holder = $('<img>');
-            let body_ref = $('body');
-            let arr_img = $('<img>');
 
 
-            img_holder.attr('src', response.results[i].image);
 
-            // crunchList.push(response.results[i].image);
 
-            img_holder.attr('width', '200px');
-            img_holder.attr('height', '200px');
-            body_ref.append(img_holder);
+            // img_holder.attr('src', response.results[i].image);
+
+            crunchList.push(response.results[i].image);
+
+            // img_holder.attr('width', '200px');
+            // img_holder.attr('height', '200px');
+
             // arr_img.attr('src', crunchList[0]);
-            body_ref.append(arr_img);
-            // arr_img.attr('width', '200px');
-            // arr_img.attr('height', '200px');
+
+
+
 
 
 
         }
 
-        // console.log(crunchList);
 
+        console.log(crunchList);
+        for (var j = 0; j < 2; j++) {
+            var body_ref = $('#exercise_img');
+            let img_timer = setInterval(() => {
+
+                let arr_img = $('<img>');
+                arr_img.attr('src', crunchList[j]);
+                arr_img.attr('width', '400px');
+                arr_img.attr('height', '400px');
+                body_ref.append(arr_img);
+            }, 500);
+
+        }
+
+    }).then(function(response) {
+        // console.log(response);
+        set_exercises(response)
+        return response
     })
 }
+
+
+function set_exercises(exercise) {
+    ex = {
+        name: exercise.name,
+        id: exercise.id,
+        description: exercise.description
+    }
+
+    $("#exercise_name").text(ex.name)
+    $("#exercise_description").text(ex.description)
+}
+
 
 const post_data = {
     "license_author": "Survival of the Fittest",

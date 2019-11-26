@@ -1,0 +1,52 @@
+h1, h2, h3, h4, p {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+#profile {
+    text-align: center;
+    text-emphasis: bold;
+}
+
+#start-page {
+    align-self: center;
+    width:100%;
+}
+
+#start {
+    align-self: auto;
+    margin-left: 45%;
+    color: #00d1b2, #fff;
+}
+
+button {
+    color:#00d1b2;
+}
+
+form {
+    margin-left: 30%;
+    margin-right: 30%;
+    background-color:#00d1b2;
+}
+
+input {
+    width: 40%;
+}
+
+#work_out_page {
+    margin-left: auto;
+    margin-right: auto;
+} 
+
+
+@media only screen and (max-width: 760px) {
+    #start {
+        align-self: auto;
+        margin-left: 35%;
+    }
+  }
