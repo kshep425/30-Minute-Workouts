@@ -5,3 +5,5 @@ $("#start").click(function(){
     $("#start").css({"display":"none"})
     start_exercise()
 });
+
+wger_query("exerciseimage", img_query_data);

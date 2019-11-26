@@ -7,16 +7,21 @@ const wger_api = {
 /** *The query data can be updated as needed.
 *  For endpoint 'exercise/id': format and status;
 */
-const query_data = {
+const exercise_query_data = {
     format: "json",
-    status: "2",
+    //status: "2",
+}
+
+const img_query_data = {
+    language: "2",
+    limit: '204'
 }
 
 /**
  * Get exercises using wger_query
  * @param {string} endpoint
  */
-const wger_query = function (endpoint) {
+const wger_query = function (endpoint, data=exercise_query_data) {
 
     $.ajax({
         beforeSend: function (xhr) {
@@ -24,11 +29,26 @@ const wger_query = function (endpoint) {
             xhr.setRequestHeader("Accept", "application/json;indent=4")
         },
         url: wger_api.uri + endpoint,
-        data: query_data,
+        data: data,
         method: "GET"
     }).then(function (response) {
         console.log(response);
-        set_exercises(response);
+
+        if (endpoint.includes("exerciseimage")){
+            response.results.forEach(function(image){
+                console.log(image)
+                let img_holder = $('<img>');
+                img_holder.attr('src', image.image);
+                img_holder.attr('width', '200px');
+                img_holder.attr('height', '200px');
+                img_holder.attr('exercise_id', image.exercise)
+                img_holder.attr('is_main', image.is_main)
+                img_holder.hide()
+                $("#exercise_imgs").append(img_holder);
+            })
+        } else {
+            set_exercises(response);
+        }
     }).fail(function (err) {
         console.log("Query Failed!")
         console.log(err)
@@ -49,6 +69,7 @@ function set_exercises(exercise) {
     $("#break_or_go").text("GO!")
     $("#exercise_name").text(ex.name)
     $("#exercise_description").html(ex.description)
+    $("[exercise_id=" + id + "]").show();
 }
 
 /**
@@ -123,25 +144,26 @@ function sleep(seconds) {
  */
 async function start_exercise() {
 
-    let interval_time = 10;
-    let break_time = 5;
-    let exercise_ids = [91, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
+    let interval_time = 30;
+    let break_time = 10;
+    let exercise_ids = [4, 91, 32, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
 
     display_time(30*60, "#total_workout_time");
 
-    for (let i = 1; i < exercise_ids.length; i++) {
+    for (let i = 0; i < exercise_ids.length; i++) {
         id = exercise_ids[i]
         console.log("Start Exercise: " + id);
 
         wger_query("exercise/" + id);
+
         display_time(interval_time, "#exercise_timer_section");
 
         setTimeout(() => {
             console.log("Start Break");
+            $("[exercise_id=" + id + "]").hide()
             its_break_time();
         }, interval_time * 1000);
 
         await sleep(interval_time + break_time);
     }
 }
-
