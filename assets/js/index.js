@@ -144,3 +144,4 @@ async function start_exercise() {
         await sleep(interval_time + break_time);
     }
 }
+
