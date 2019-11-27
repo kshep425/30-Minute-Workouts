@@ -73,11 +73,21 @@ function set_exercises(exercise) {
     play_sound("./assets/workout_start.m4a");
 }
 
+
+/**
+ * Create a sound object using the sound constructor
+ * @param {*} src path to sound
+ */
 function play_sound(src) {
     this.sound = document.createElement("audio");
     this.sound.src = src;
     this.sound.play();
-  }
+    console.log(this)
+    console.log(this.sound)
+    this.stop = function(){
+        this.sound.pause()
+    }
+}
 
 /**
  * It's Break Time!
@@ -154,11 +164,12 @@ async function start_exercise() {
     let total_workout_time = 3;
     let interval_time = 10;
     let break_time = 5;
+    let total_exercises = (total_workout_time * 60)/(interval_time + break_time)
     let exercise_ids = [4, 91, 93, 60, 128, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
 
     display_time( total_workout_time * 60, "#total_workout_time");
 
-    for (let i = 0; i < exercise_ids.length; i++) {
+    for (let i = 0; i < total_exercises; i++) {
         id = exercise_ids[i]
         console.log("Start Exercise: " + id);
 
@@ -176,6 +187,17 @@ async function start_exercise() {
             its_break_time(break_time);
         }, interval_time * 1000);
 
+        if ($("#total_workout_time").text() === "00:00:00") {
+            break;
+        }
         await sleep(interval_time + break_time);
     }
+
+    stop_workout();
+    $("#complete_page").show();
+}
+
+function stop_workout(){
+    $("#work_out_page").hide();
+
 }
