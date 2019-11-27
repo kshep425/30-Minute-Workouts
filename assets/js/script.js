@@ -38,11 +38,9 @@ function progress() {
     var proBar = setInterval(function(){
         let i = sec/(3*60)
         $("#progress_bar").attr("value", i);
-        console.log(i);
         console.log($("#progress_bar").attr("value"));
-        if (i == 1) {
+        if (i >= 1) {
             clearInterval(proBar);
-            console.log(i)
         }
         sec++
     },1000)
