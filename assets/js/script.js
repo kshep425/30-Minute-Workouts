@@ -3,7 +3,8 @@ $("#start").click(function(){
     $("#work_out_page").css({"display":"block"})
     $("#profile").hide();
     $("#start").hide();
-    start_exercise()
+    progress();
+    start_exercise();
 });
 
 /** Save profile button
@@ -29,6 +30,25 @@ function load_profile(){
         $("#goal_pref").val(profile.goal)
         $("#intensity_pref").val(profile.intensity)
     }
+}
+
+
+
+function progress() {
+    sec = 0;
+
+    var proBar = setInterval(function(){
+        let i = sec/(3*60)
+        $("#progress_bar").attr("value", i);
+        console.log(i);
+        console.log($("#progress_bar").attr("value"));
+        if (i == 1) {
+            clearInterval(proBar);
+            console.log(i)
+        }
+        sec++
+    },1000)
+
 }
 
 load_profile();

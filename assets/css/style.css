@@ -43,6 +43,11 @@ input {
     margin-right: auto;
 } 
 
+.timer_section {
+    font-size: 36;
+    
+}
+
 
 @media only screen and (max-width: 760px) {
     #start {
