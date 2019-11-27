@@ -10,7 +10,7 @@ $("#start").click(function(){
 wger_query("exerciseimage", img_query_data);
 
 
-
+// Progress Bar
 function progress() {
     sec = 0;
 
