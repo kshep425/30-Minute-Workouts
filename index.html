@@ -1,30 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>30 Minute Workout</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="assets/css/style.css" rel="stylesheet">
-    </head>
-    <body>
-        <div id="title_section">
-            <h1>30 Minute Workout</h1>
-            <h2>Survival of the fittest!</h2>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link href="assets/css/style.css" rel="stylesheet">
+    <title>30 Minute Workout</title>
+</head>
+
+<body>
+    <section class="hero is-primary is-small has-text-justified">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    30 Minute Workout!
+                </h1>
+                <h2 class="subtitle">
+                    Survival of the Fittest
+                </h2>
+            </div>
         </div>
-        <div id="start_page">
-            <div id="workout_type_section"></div>
-            <div id="music_type_section"></div>
-            <div id="start_section"></div>
-        </div>
-        <div id="work_out_page" hidden>
-            <div id="timer_section"></div>
-            <div id="exercise_section"></div>
-            <div id="exercise_timer_section"></div>
-        </div>
-        <div id="work_out_complete_page" hidden>
-            <div id="success_section"></div>
-            <div id="share_section"></div>
-            <div id="challenge_section"></div>
-        </div>
-    </body>
+    </section>
+    <section>
+        <a target="#" id="profile_link">Profile</a>
+        <a>Meal Plan</a>
+    </section>
+    <section class="container is fluid" id="profile">
+        <b>Profile</b>
+        <form>
+            First name:<br>
+            <input type="text" name="user_name" id="user_name" class="profile_form">
+            <br>Goal<br>
+            <input type="text" name="text" id="goal_pref" class="profile_form">
+            <br>Intensity Preference<br>
+            <input type="text" name="text" id="intensity_pref" class="profile_form"><br>
+            <button type="submit" value="Save" id="save_profile">Save</button>
+        </form>
+        </section>
+
+    <div id="work_out_page" hidden>
+        <h1>Workout One</h1>
+       
+        <progress class="progress is-primary is large"  id="progress_bar" value="0" max="100"></progress>
+        <h4 id="total_workout_time"></h4>
+        <h2 id="break_or_go">GO!</h2>
+        <h3 id="exercise_name"></h3>
+        <div id="exercise_imgs"></div>
+        <h4>Workout Description</h4>
+        <p id="exercise_description"></p>
+        <div id="exercise_section"></div>
+        <div id="exercise_timer_section"></div>
+        <div id="exercise_break_section"></div>
+    </div>
+    <div id="start_page">
+        <button class="button is primary is rounded" type="input" id="start">Start Workout!</button>
+        <div id="workout_type_section"></div>
+        <div id="music_type_section"></div>
+        <div id="start_section"></div>
+    </div>
+    <div id="google_translate_element"></div>
+    <section class="container is fluid" id="done">
+    <div id="work_out_complete_page" hidden>
+        <div id="success_section"></div>
+        <h1><b>Workout Complete!!</b></h1>
+        <hr>
+        <h1><b>GREAT JOB!!</b></h1>
+        <div id="share_section"></div>
+        <h3>Share with a friend!</h3>
+        <div id="challenge_section"></div>
+        <h3>Challenge a Friend!</h3>
+    </section>
+
+    </div>
+</section>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="./assets/js/index.js"></script>
+    <script src="./assets/js/script.js"></script>
+   </body>
+
 </html>
