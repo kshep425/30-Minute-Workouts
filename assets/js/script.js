@@ -32,8 +32,6 @@ function load_profile(){
     }
 }
 
-
-
 function progress() {
     sec = 0;
 
