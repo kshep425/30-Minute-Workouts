@@ -23,27 +23,28 @@
             </div>
         </div>
     </section>
-    <section class="container is fluid main" id="profile"><b>Profile</b>
-        
+    <section>
+        <a target="#" id="profile_link">Profile</a>
+        <a>Meal Plan</a>
+    </section>
+    <section class="container is fluid" id="profile">
+        <b>Profile</b>
         <form>
             First name:<br>
-            <input type="text" name="firstname"><br>
-            Last name:<br>
-            <input type="text" name="lastname"><br>
-            Age<br>
-            <input type="number" name="age"><br>
-            Height<br>
-            <input type="number" name="height"><br>
-            Weight<br>
-            <input type="number" name="weight"><br>
-            Sex<br>
-            <input type="text" name="sex"><br>
-            Email<br>
-            <input type="email" name="email"><br>
-            Goal<br>
-            <input type="text" name="text"><br>
-            Intensity Preference<br>
-            <input type="text" name="text"><br>
+            <input type="text" name="user_name" id="user_name" class="profile_form">
+            <br>Goal<br>
+            <select type="text" name="text" id="goal_pref" class="profile_form">
+                <option>Lose Weight</option>
+                <option>Gain Muscle</option>
+                <option>Lose Fat</option>
+            </select>
+            <br>Intensity Preference<br>
+            <select type="text" name="text" id="intensity_pref" class="profile_form">
+                <option>Lazy AH</option>
+                <option>Hard, but doable</option>
+                <option>Kill me now!</option>
+            </select><br>
+            <button type="submit" value="Save" id="save_profile">Save</button>
         </form>
         </section>
 

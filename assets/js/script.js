@@ -1,13 +1,36 @@
 
 $("#start").click(function(){
     $("#work_out_page").css({"display":"block"})
-    $("#profile").css({"display":"none"})
-    $("#start").css({"display":"none"})
-    progress()
-    start_exercise()
+    $("#profile").hide();
+    $("#start").hide();
+    progress();
+    start_exercise();
 });
 
-wger_query("exerciseimage", img_query_data);
+/** Save profile button
+ * Save profile information in local storage
+*/
+$("#save_profile").click(function(event){
+    event.preventDefault()
+    profile = {
+        user_name: $("#user_name").val(),
+        goal: $("#goal_pref").val(),
+        intensity: $("#intensity_pref").val()
+    }
+    console.log(profile)
+    localStorage.setItem("profile", JSON.stringify(profile));
+})
+
+function load_profile(){
+    $("profile").show();
+    profile = JSON.parse(localStorage.getItem("profile"))
+    console.log(profile)
+    if (profile != undefined){
+        $("#user_name").val(profile.user_name)
+        $("#goal_pref").val(profile.goal)
+        $("#intensity_pref").val(profile.intensity)
+    }
+}
 
 
 // Progress Bar
@@ -25,5 +48,8 @@ function progress() {
         }
         sec++
     },1000)
-    
+
 }
+
+load_profile();
+wger_query("exerciseimage", img_query_data);
