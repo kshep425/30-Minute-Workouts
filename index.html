@@ -48,16 +48,17 @@
 
     <div id="work_out_page" hidden>
         <h1>Workout One</h1>
-        <h2>GO!</h2>
+       
         <progress class="progress is-primary" value="15" max="100"></progress>
+        <h4 id="total_workout_time"></h4>
+        <h2 id="break_or_go">GO!</h2>
         <h3 id="exercise_name"></h3>
-        <img id="exercise_img" src="">
-        <h4 id="exercise_time"></h4>
+        <div id="exercise_imgs"></div>
         <h4>Workout Description</h4>
         <p id="exercise_description"></p>
-        <div id="timer_section"></div>
         <div id="exercise_section"></div>
         <div id="exercise_timer_section"></div>
+        <div id="exercise_break_section"></div>
     </div>
     <div id="start_page">
         <button class="button is primary is rounded" type="input" id="start">Start Workout!</button>
@@ -65,6 +66,7 @@
         <div id="music_type_section"></div>
         <div id="start_section"></div>
     </div>
+    <div id="google_translate_element"></div>
     <section class="container is fluid" id="done">
     <div id="work_out_complete_page" hidden>
         <div id="success_section"></div>
@@ -76,7 +78,7 @@
         <div id="challenge_section"></div>
         <h3>Challenge a Friend!</h3>
     </section>
-        
+
     </div>
 </section>
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
