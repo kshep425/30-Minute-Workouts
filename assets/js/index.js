@@ -70,7 +70,14 @@ function set_exercises(exercise) {
     $("#exercise_name").text(ex.name)
     $("#exercise_description").html(ex.description)
     $("[exercise_id=" + id + "]").show();
+    play_sound("./assets/workout_start.m4a");
 }
+
+function play_sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.play();
+  }
 
 /**
  * It's Break Time!
@@ -82,12 +89,11 @@ function set_exercises(exercise) {
  * TODO: Get break time from profile settings.
  *
  */
-function its_break_time() {
-    let break_time = 5;
+function its_break_time(break_time=5) {
     $("#break_or_go").text("BREAK!")
     $("#exercise_name").text("")
     $("#exercise_description").text("Next exercise is: ")
-    display_time(break_time, "#exercise_break_section")
+    display_time(break_time, "#exercise_timer_section")
 }
 /**
  * Display Time
@@ -103,7 +109,6 @@ function display_time(time_left, section) {
     let exercise_interval = setInterval(() => {
         $(section).text(convert_seconds_to_time(time_left))
         if (time_left <= 0) {
-            $(section).hide()
             clearInterval(exercise_interval)
         }
         time_left = time_left - 1
@@ -147,8 +152,8 @@ function sleep(seconds) {
 async function start_exercise() {
     // demo_mode: 3 min total; 20 sec interval; 10 sec break;
     let total_workout_time = 3;
-    let interval_time = 20;
-    let break_time = 10;
+    let interval_time = 10;
+    let break_time = 5;
     let exercise_ids = [4, 91, 93, 60, 128, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
 
     display_time( total_workout_time * 60, "#total_workout_time");
@@ -161,10 +166,14 @@ async function start_exercise() {
 
         display_time(interval_time, "#exercise_timer_section");
 
+        console.log("Wait before starting break ")
+
+        await sleep(2)
+
         setTimeout(() => {
             console.log("Start Break");
             $("[exercise_id=" + id + "]").hide();
-            its_break_time();
+            its_break_time(break_time);
         }, interval_time * 1000);
 
         await sleep(interval_time + break_time);
