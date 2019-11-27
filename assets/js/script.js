@@ -33,7 +33,7 @@ function load_profile(){
 }
 
 
-
+// Progress Bar
 function progress() {
     sec = 0;
 
