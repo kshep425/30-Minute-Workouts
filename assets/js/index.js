@@ -8,8 +8,7 @@ const wger_api = {
 *  For endpoint 'exercise/id': format and status;
 */
 const exercise_query_data = {
-    format: "json",
-    //status: "2",
+    format: "json"
 }
 
 const img_query_data = {
