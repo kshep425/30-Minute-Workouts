@@ -85,6 +85,10 @@ function play_sound(song_audio) {
     m.play();
 }
 
+function stop_sound(song_audio) {
+    let m = document.getElementById(song_audio)
+    m.pause();
+}
 /**
  * It's Break Time!
  * This will:
@@ -184,6 +188,7 @@ async function start_exercise() {
         }, interval_time * 1000);
 
         if ($("#total_workout_time").text() === "00:00:00") {
+            stop_sound(exercise_music);
             break;
         }
         await sleep(interval_time + break_time);
