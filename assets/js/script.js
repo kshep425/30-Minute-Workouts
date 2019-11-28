@@ -19,8 +19,14 @@ $(document).ready(function () {
         event.preventDefault();
         save_profile();
     })
+    let num_clicks = 0
+    $(document).click(function (event){
+        if (num_clicks === 0){
+            play_sound("start_page_audio");
+            num_clicks += 1
+        }
+    })
 
-    //play_sound("start_page_audio");
     load_profile();
     wger_query("exerciseimage", img_query_data);
 
