@@ -41,13 +41,16 @@ input {
 #work_out_page {
     margin-left: auto;
     margin-right: auto;
-} 
+}
 
 .timer_section {
     font-size: 36;
-    
 }
 
+.total {
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+}
 
 @media only screen and (max-width: 760px) {
     #start {
