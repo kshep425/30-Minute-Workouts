@@ -47,7 +47,7 @@
             </select><br>
             <button type="submit" value="Save" id="save_profile">Save</button>
         </form>
-        <audio id="start_page_audio">
+        <audio id="start_page_audio" controls>
             <source src="assets/sounds/Heavy Bass - Start Page.m4a" type="audio/mpeg">
             Your browser does not support the audio element
         </audio>
@@ -88,16 +88,26 @@
         <div id="start_section"></div>
     </div>
     <div id="google_translate_element"></div>
-    <section class="container is fluid" id="done">
-        <div id="work_out_complete_page" hidden>
+    <section class="container is fluid" >
+        <div id="work_out_done" hidden >
             <div id="success_section"></div>
             <h1><b>Workout Complete!!</b></h1>
             <hr>
             <h1><b>GREAT JOB!!</b></h1>
-            <div id="share_section"></div>
-            <h3>Share with a friend!</h3>
-            <div id="challenge_section"></div>
-            <h3>Challenge a Friend!</h3>
+            <div id="total_workouts_section">
+                <h2>You've completed <span id="total_consecutive_workouts" class="total"> 0 </span> consective workouts!</h2>
+                <h2>You've completed <span id="total_workouts" class="total"> 0 </span> total workouts!</h2>
+                <h2 id="last_workout_month" hidden></h2>
+                <h2 id="last_workout_day" hidden></h2>
+                <h2 id="last_workout_year" hidden></h2>
+            </div>
+            <div id=badges_earned_section></div>
+            <div id="share_section">
+                <h3>Share with a friend!</h3>
+            </div>
+            <div id="challenge_section">
+                <h3>Challenge a Friend!</h3>
+            </div>
     </section>
 
     </div>
