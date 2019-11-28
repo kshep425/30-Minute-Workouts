@@ -55,12 +55,13 @@ const wger_query = function (endpoint, data=exercise_query_data) {
     })
 }
 
+var exercise_music;
 /**
  * Set Exercise info to display during time interval
  * @param {object} exercise This is the response from the exercise/id endpoint
  */
 function set_exercises(exercise) {
-    ex = {
+    let ex = {
         name: exercise.name,
         id: exercise.id,
         description: exercise.description
@@ -69,7 +70,9 @@ function set_exercises(exercise) {
     $("#exercise_name").text(ex.name)
     $("#exercise_description").html(ex.description)
     $("[exercise_id=" + id + "]").show();
-    play_sound("./assets/workout_start.m4a");
+
+    exercise_music = $($(":selected")[1]).attr("music");
+    play_sound(exercise_music);
 }
 
 
@@ -77,15 +80,9 @@ function set_exercises(exercise) {
  * Create a sound object using the sound constructor
  * @param {*} src path to sound
  */
-function play_sound(src) {
-    this.sound = document.createElement("audio");
-    this.sound.src = src;
-    this.sound.play();
-    console.log(this)
-    console.log(this.sound)
-    this.stop = function(){
-        this.sound.pause()
-    }
+function play_sound(song_audio) {
+    let m = document.getElementById(song_audio)
+    m.play();
 }
 
 /**
@@ -160,9 +157,9 @@ function sleep(seconds) {
  */
 async function start_exercise() {
     // demo_mode: 3 min total; 20 sec interval; 10 sec break;
-    let total_workout_time = 3;
-    let interval_time = 10;
-    let break_time = 5;
+    let total_workout_time = ($($(":selected")[1]).attr("workout") === "demo")? 3 : 30;
+    let interval_time = parseInt($($(":selected")[1]).attr("interval_time"));
+    let break_time = parseInt($($(":selected")[1]).attr("break_time"));
     let total_exercises = (total_workout_time * 60)/(interval_time + break_time)
     let exercise_ids = [4, 91, 93, 60, 128, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
 
