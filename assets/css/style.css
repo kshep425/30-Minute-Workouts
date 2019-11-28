@@ -1,3 +1,8 @@
+.main {
+    background-image: url("../Images/brickwall/brickwall.png");
+ 
+}
+
 h1, h2, h3, h4, p {
     display: flex;
     justify-content: center;
@@ -43,9 +48,9 @@ input {
     margin-right: auto;
 } 
 
-.timer_section {
-    font-size: 36;
-    
+.timer {
+   font-size: xx-large;
+    font-style: oblique;
 }
 
 

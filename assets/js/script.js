@@ -1,8 +1,6 @@
 
 $(document).ready(function () {
 
-
-
     $("#start").click(function (event) {
         event.preventDefault();
         $("#work_out_page").css({ "display": "block" })
