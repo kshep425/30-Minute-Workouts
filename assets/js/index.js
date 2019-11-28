@@ -59,7 +59,7 @@ var exercise_music;
  * Set Exercise info to display during time interval
  * @param {object} exercise This is the response from the exercise/id endpoint
  */
-function set_exercises(exercise) {
+async function set_exercises(exercise) {
     let ex = {
         name: exercise.name,
         id: exercise.id,
@@ -69,6 +69,12 @@ function set_exercises(exercise) {
     $("#exercise_name").text(ex.name)
     $("#exercise_description").html(ex.description)
     $("[exercise_id=" + id + "]").show();
+
+    next_exercise_announcement = "Your next exercise is " + ex.name;
+    next_exercise_description = ex.description;
+    responsiveVoice.speak(next_exercise_announcement);
+    //responsiveVoice.speak(next_exercise_description)
+    await sleep(2)
 
     exercise_music = $($(":selected")[1]).attr("music");
     play_sound(exercise_music);
@@ -175,6 +181,8 @@ async function start_exercise() {
 
         wger_query("exercise/" + id);
 
+        await sleep(2)
+
         display_time(interval_time, "#exercise_timer_section");
 
         await sleep(2)
@@ -218,6 +226,11 @@ function stop_workout(){
     $("#total_consecutive_workouts").text(total_consecutive_workouts);
     $("#total_workouts").text(total_workouts);
     $("#work_out_done").show();
+
+    responsiveVoice.speak("Great Job!")
+    responsiveVoice.speak($("#total_consecutive_workouts_text").text())
+    responsiveVoice.speak($("#total_workouts_text").text())
+
     save_profile(true);
 }
 
@@ -233,7 +246,8 @@ function save_profile(update_date=false){
             month: $("#last_workout_month").text(),
             day: $("#last_workout_day").text(),
             year: $("#last_workout_year").text(),
-        }
+        },
+        play_mode: $("#play_mode").val()
     }
 
     if (update_date){
@@ -256,6 +270,7 @@ function load_profile() {
         $("#user_name").val(profile.user_name);
         $("#goal_pref").val(profile.goal);
         $("#intensity_pref").val(profile.intensity);
+        $("#play_mode").val(profile.play_mode)
         $("#total_consecutive_workouts").text(profile.total_consecutive_workouts);
         $("#total_workouts").text(profile.total_workouts);
         $("#last_workout_month").text(profile.last_workout_date.month)
