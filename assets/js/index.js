@@ -8,8 +8,7 @@ const wger_api = {
 *  For endpoint 'exercise/id': format and status;
 */
 const exercise_query_data = {
-    format: "json",
-    //status: "2",
+    format: "json"
 }
 
 const img_query_data = {
@@ -36,7 +35,6 @@ const wger_query = function (endpoint, data=exercise_query_data) {
 
         if (endpoint.includes("exerciseimage")){
             response.results.forEach(function(image){
-                console.log(image)
                 let img_holder = $('<img>');
                 img_holder.attr('src', image.image);
                 img_holder.attr('width', '200px');
@@ -56,12 +54,13 @@ const wger_query = function (endpoint, data=exercise_query_data) {
     })
 }
 
+var exercise_music;
 /**
  * Set Exercise info to display during time interval
  * @param {object} exercise This is the response from the exercise/id endpoint
  */
 function set_exercises(exercise) {
-    ex = {
+    let ex = {
         name: exercise.name,
         id: exercise.id,
         description: exercise.description
@@ -70,8 +69,25 @@ function set_exercises(exercise) {
     $("#exercise_name").text(ex.name)
     $("#exercise_description").html(ex.description)
     $("[exercise_id=" + id + "]").show();
+
+    exercise_music = $($(":selected")[1]).attr("music");
+    play_sound(exercise_music);
 }
 
+
+/**
+ * Create a sound object using the sound constructor
+ * @param {*} src path to sound
+ */
+function play_sound(song_audio) {
+    let m = document.getElementById(song_audio)
+    m.play();
+}
+
+function stop_sound(song_audio) {
+    let m = document.getElementById(song_audio)
+    m.pause();
+}
 /**
  * It's Break Time!
  * This will:
@@ -82,12 +98,11 @@ function set_exercises(exercise) {
  * TODO: Get break time from profile settings.
  *
  */
-function its_break_time() {
-    let break_time = 5;
+function its_break_time(break_time=5) {
     $("#break_or_go").text("BREAK!")
     $("#exercise_name").text("")
     $("#exercise_description").text("Next exercise is: ")
-    display_time(break_time, "#exercise_break_section")
+    display_time(break_time, "#exercise_timer_section")
 }
 /**
  * Display Time
@@ -98,12 +113,12 @@ function its_break_time() {
  *
  */
 function display_time(time_left, section) {
-    console.log("Display " + time_left + " on " + section)
+    text_time_left = convert_seconds_to_time(time_left)
+    console.log("Display " + text_time_left + " on " + section)
     $(section).show();
     let exercise_interval = setInterval(() => {
         $(section).text(convert_seconds_to_time(time_left))
         if (time_left <= 0) {
-            $(section).hide()
             clearInterval(exercise_interval)
         }
         time_left = time_left - 1
@@ -146,14 +161,15 @@ function sleep(seconds) {
  */
 async function start_exercise() {
     // demo_mode: 3 min total; 20 sec interval; 10 sec break;
-    let total_workout_time = 3;
-    let interval_time = 20;
-    let break_time = 10;
+    let total_workout_time = ($($(":selected")[1]).attr("workout") === "demo")? 3 : 30;
+    let interval_time = parseInt($($(":selected")[1]).attr("interval_time"));
+    let break_time = parseInt($($(":selected")[1]).attr("break_time"));
+    let total_exercises = (total_workout_time * 60)/(interval_time + break_time)
     let exercise_ids = [4, 91, 93, 60, 128, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
 
     display_time( total_workout_time * 60, "#total_workout_time");
 
-    for (let i = 0; i < exercise_ids.length; i++) {
+    for (let i = 0; i < total_exercises; i++) {
         id = exercise_ids[i]
         console.log("Start Exercise: " + id);
 
@@ -161,12 +177,131 @@ async function start_exercise() {
 
         display_time(interval_time, "#exercise_timer_section");
 
+        await sleep(2)
+
         setTimeout(() => {
             console.log("Start Break");
             $("[exercise_id=" + id + "]").hide();
-            its_break_time();
+            its_break_time(break_time);
         }, interval_time * 1000);
 
+        if ($("#total_workout_time").text() === "00:00:00") {
+            stop_sound(exercise_music);
+            stop_workout();
+            break;
+        }
         await sleep(interval_time + break_time);
     }
+
+    stop_workout();
+
+}
+
+function stop_workout(){
+    console.log("Workout done")
+    stop_sound(exercise_music);
+    $("#work_out_page").hide();
+    let last_workout_date = {
+        month: $("#last_workout_month").text(),
+        day: $("#last_workout_day").text(),
+        year: $("#last_workout_year").text()
+    }
+
+    let total_consecutive_workouts= parseInt($("#total_consecutive_workouts").text());
+    let total_workouts = parseInt($("#total_workouts").text());
+    if(is_yesterday(last_workout_date)){
+        console.log("last workout was yesterday, update total consecutive workouts")
+        total_consecutive_workouts += 1;
+    };
+    total_workouts += 1;
+
+    $("#total_consecutive_workouts").text(total_consecutive_workouts);
+    $("#total_workouts").text(total_workouts);
+    $("#work_out_done").show();
+    save_profile(true);
+}
+
+function save_profile(update_date=false){
+    console.log("save profile and update_date: " + update_date)
+    profile = {
+        user_name: $("#user_name").val(),
+        goal: $("#goal_pref").val(),
+        intensity: $("#intensity_pref").val(),
+        total_consecutive_workouts: $("#total_consecutive_workouts").text(),
+        total_workouts: $("#total_workouts").text(),
+        last_workout_date: {
+            month: $("#last_workout_month").text(),
+            day: $("#last_workout_day").text(),
+            year: $("#last_workout_year").text(),
+        }
+    }
+
+    if (update_date){
+        console.log("Update Last Workout Date")
+        let updated_date = new Date();
+        profile.last_workout_date.month = updated_date.getMonth();
+        profile.last_workout_date.day = updated_date.getDate();
+        profile.last_workout_date.year = updated_date.getFullYear();
+    }
+
+    console.log(profile)
+    localStorage.setItem("profile", JSON.stringify(profile));
+}
+
+function load_profile() {
+    $("profile").show();
+    profile = JSON.parse(localStorage.getItem("profile"))
+    console.log(profile)
+    if (profile != undefined) {
+        $("#user_name").val(profile.user_name);
+        $("#goal_pref").val(profile.goal);
+        $("#intensity_pref").val(profile.intensity);
+        $("#total_consecutive_workouts").text(profile.total_consecutive_workouts);
+        $("#total_workouts").text(profile.total_workouts);
+        $("#last_workout_month").text(profile.last_workout_date.month)
+        $("#last_workout_day").text(profile.last_workout_date.day)
+        $("#last_workout_year").text(profile.last_workout_date.year)
+        $("#last_workout_month").hide()
+        $("#last_workout_day").hide()
+        $("#last_workout_year").hide()
+    }
+}
+
+function progress() {
+    sec = 0;
+
+    var proBar = setInterval(function () {
+        let total_workout_time = ($($(":selected")[1]).attr("workout") === "demo")? 3 : 30;
+        let i = sec / (total_workout_time * 60)
+        $("#progress_bar").attr("value", i);
+        //console.log($("#progress_bar").attr("value"));
+        if (i >= 1) {
+            clearInterval(proBar);
+        }
+        sec++
+    }, 1000)
+
+}
+
+//Check if last_workout_date is yesterday
+function is_yesterday(lw_date){
+    is_yesterday_bool = false;
+    if (lw_date === undefined || lw_date === "" || typeof lw_date != "object"){
+        console.log("last_workout_date not defined")
+        return is_yesterday_bool
+    }
+
+    let today = new Date();
+    let yesterday_epoch_seconds = Math.floor(today.getTime()/1000.0) - 86400 //getTime gets epoch time in millisonds; 86400 is seconds in a day
+    let yesterday = new Date(yesterday_epoch_seconds*1000)
+
+    if (parseInt(lw_date.month) === yesterday.getMonth() &&
+        parseInt(lw_date.day) === yesterday.getDate() &&
+        parseInt(lw_date.year) === yesterday.getFullYear()){
+            is_yesterday_bool = true
+            console.log("good. you worked out yesterday")
+    }
+
+    return is_yesterday_bool;
+
 }

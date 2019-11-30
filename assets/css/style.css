@@ -1,6 +1,6 @@
 .main {
     background-image: url("../Images/brickwall/brickwall.png");
- 
+
 }
 
 h1, h2, h3, h4, p {
@@ -46,13 +46,17 @@ input {
 #work_out_page {
     margin-left: auto;
     margin-right: auto;
-} 
+}
 
-.timer {
-   font-size: xx-large;
+.exercise_timer_section {
+    font-size: 36; /*xx-large;*/
     font-style: oblique;
 }
 
+.total {
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+}
 
 @media only screen and (max-width: 760px) {
     #start {
