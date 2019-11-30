@@ -4,13 +4,13 @@ const wger_api = {
     uri: "https://wger.de/api/v2/"
 }
 
-/** *The query data can be updated as needed.
+/** The query data can be updated as needed.
 *  For endpoint 'exercise/id': format and status;
 */
 const exercise_query_data = {
     format: "json"
 }
-
+//image query data
 const img_query_data = {
     language: "2",
     limit: '204'
@@ -71,13 +71,28 @@ async function set_exercises(exercise) {
     $("[exercise_id=" + id + "]").show();
 
     next_exercise_announcement = "Your next exercise is " + ex.name;
-    next_exercise_description = ex.description;
     responsiveVoice.speak(next_exercise_announcement);
-    //responsiveVoice.speak(next_exercise_description)
-    await sleep(2)
+    if($("#play_description").val() === "Yes"){
+        let play_ex = await play_ex_description();
+    }
 
+    await not_playing();
+
+    pause_timers = false;
     exercise_music = $($(":selected")[1]).attr("music");
     play_sound(exercise_music);
+}
+
+
+let play_ex_description = function(){
+    return new Promise((resolve, reject) => {
+        pause_timers = true;
+        exercise_music = $($(":selected")[1]).attr("music");
+        stop_sound(exercise_music)
+        next_exercise_description = document.getElementById("exercise_description").innerText;
+        responsiveVoice.speak(next_exercise_description)
+        resolve
+    })
 }
 
 
@@ -85,9 +100,10 @@ async function set_exercises(exercise) {
  * Create a sound object using the sound constructor
  * @param {*} src path to sound
  */
-function play_sound(song_audio) {
+let play_sound = function (song_audio) {
     let m = document.getElementById(song_audio)
     m.play();
+    return true;
 }
 
 function stop_sound(song_audio) {
@@ -118,6 +134,7 @@ function its_break_time(break_time=5) {
  * TODO: Add 3,2,1 beeps with big number flashes when timer is ending
  *
  */
+var pause_timers = false, timer;
 function display_time(time_left, section) {
     text_time_left = convert_seconds_to_time(time_left)
     console.log("Display " + text_time_left + " on " + section)
@@ -126,6 +143,12 @@ function display_time(time_left, section) {
         $(section).text(convert_seconds_to_time(time_left))
         if (time_left <= 0) {
             clearInterval(exercise_interval)
+        }
+        // Pause timers when needed save time_left value with section as key in timer
+        if (pause_timers === true){
+            clearInterval(exercise_interval)
+            timer = {section: time_left}
+            console.log(timer)
         }
         time_left = time_left - 1
     }, 1000)
@@ -167,27 +190,29 @@ function sleep(seconds) {
  */
 async function start_exercise() {
     // demo_mode: 3 min total; 20 sec interval; 10 sec break;
-    let total_workout_time = ($($(":selected")[1]).attr("workout") === "demo")? 3 : 30;
-    let interval_time = parseInt($($(":selected")[1]).attr("interval_time"));
-    let break_time = parseInt($($(":selected")[1]).attr("break_time"));
+    let total_workout_time = .5 //($($(":selected")[1]).attr("workout") === "demo")? 3 : 30;
+    let interval_time = 10;// parseInt($($(":selected")[1]).attr("interval_time"));
+    let break_time = 5;//parseInt($($(":selected")[1]).attr("break_time"));
     let total_exercises = (total_workout_time * 60)/(interval_time + break_time)
-    let exercise_ids = [4, 91, 93, 60, 128, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
+    let exercise_ids = [93, 4, 91, 60, 128, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
 
-    display_time( total_workout_time * 60, "#total_workout_time");
+    await display_time( total_workout_time * 60, "#total_workout_time");
 
     for (let i = 0; i < total_exercises; i++) {
         id = exercise_ids[i]
         console.log("Start Exercise: " + id);
 
-        wger_query("exercise/" + id);
+        await wger_query("exercise/" + id);
+
+        await not_playing();
 
         await sleep(2)
 
-        display_time(interval_time, "#exercise_timer_section");
+        await display_time(interval_time, "#exercise_timer_section");
 
         await sleep(2)
 
-        setTimeout(() => {
+        await setTimeout(() => {
             console.log("Start Break");
             $("[exercise_id=" + id + "]").hide();
             its_break_time(break_time);
@@ -228,7 +253,6 @@ function stop_workout(){
     $("#work_out_done").show();
 
     responsiveVoice.speak("Great Job!")
-    responsiveVoice.speak($("#total_consecutive_workouts_text").text())
     responsiveVoice.speak($("#total_workouts_text").text())
 
     save_profile(true);
@@ -298,7 +322,7 @@ function progress() {
 
 }
 
-//Check if last_workout_date is yesterday
+// Check if last_workout_date is yesterday
 function is_yesterday(lw_date){
     is_yesterday_bool = false;
     if (lw_date === undefined || lw_date === "" || typeof lw_date != "object"){
@@ -320,3 +344,28 @@ function is_yesterday(lw_date){
     return is_yesterday_bool;
 
 }
+
+/**
+ * Hot Shot Implicit Return (WHAT)
+ * Error handling es6 style in one line
+ * higher order function
+ * https://www.youtube.com/watch?v=BDqZLfBFeGk
+ * */
+const handleError = fn => (...params) => fn(...params).catch(console.error);
+/**
+ * example creating a function using handleError
+ * const safeYolo = handleError(yolo_function)
+ * safeYolo();
+ */
+
+ async function not_playing (){
+     console.log("Check if playing")
+     return new Promise ((resolve) => {
+        while (responsiveVoice.isPlaying()){
+            console.log("Still Playing")
+            sleep(3);
+        }
+        console.log("Yeah it stopped playing")
+        resolve(true)
+     })
+ }

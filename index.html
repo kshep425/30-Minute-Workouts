@@ -50,6 +50,11 @@
                 <option play_mode="autoplay">Autoplay</option>
                 <option play_mode="responsive">Responsive</option>
             </select>
+            <br>Play Description?<br>
+            <select type="text" name="text" id="play_description" class="profile_form">
+                <option>Yes</option>
+                <option>No</option>
+            </select>
             <button type="submit" value="Save" id="save_profile">Save</button>
         </form>
         <button class="button is primary is rounded" type="input" id="start">Start Workout!</button>
@@ -101,9 +106,7 @@
             <hr>
             <h1><b>GREAT JOB!!</b></h1>
             <div id="total_workouts_section">
-                <h2 id="total_consecutive_workouts_text">You've completed <span id="total_consecutive_workouts" class="total"> 0 </span> days of consective workouts!
-                </h2>
-                <h2 id="total_workouts_text">You've completed <span id="total_workouts" class="total"> 0 </span> total workouts!</h2>
+                <h2 id="total_workouts_text">You've completed <span id="total_consecutive_workouts" class="total"> 0 </span> days of consective workouts and <span id="total_workouts" class="total"> 0 </span> total workouts!</h2>
                 <h2 id="last_workout_month" hidden></h2>
                 <h2 id="last_workout_day" hidden></h2>
                 <h2 id="last_workout_year" hidden></h2>

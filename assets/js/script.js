@@ -19,6 +19,9 @@ $(document).ready(function () {
         event.preventDefault();
         save_profile();
     })
+
+//    responsiveVoice.enableWindowClickHook();
+
     let num_clicks = 0
     $(document).click(function (event){
         if (num_clicks === 0){
