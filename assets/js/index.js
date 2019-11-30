@@ -55,6 +55,9 @@ const wger_query = function (endpoint, data=exercise_query_data) {
 }
 
 var exercise_music;
+// determine if in responsive mode
+var responsive_mode;
+var sleep_time=2;
 /**
  * Set Exercise info to display during time interval
  * @param {object} exercise This is the response from the exercise/id endpoint
@@ -72,9 +75,24 @@ async function set_exercises(exercise) {
     $("[exercise_id=" + id + "]").show();
 
     next_exercise_announcement = "Your next exercise is " + ex.name;
-    responsiveVoice.speak(next_exercise_announcement);
+
+
     //responsiveVoice.speak(next_exercise_description)
-    await sleep(2)
+    if (responsive_mode){
+        // set sleep_time to 10 because it allows for time to get the prompts
+        sleep_time=10;
+        await sleep(2).then(async function are_you_ready(){
+            next_exercise_announcement_ready = next_exercise_announcement + " are you ready?"
+            responsiveVoice.speak(next_exercise_announcement_ready);
+            // the 4 second sleep is needed so that it gives time for responsive voice to finish.
+            return await sleep(4)
+        }).then(function are_you_ready_prompt(){
+            // TODO: enter wait for voice response here next
+            prompt("are_you_ready?");
+        })
+    } else{
+        responsiveVoice.speak(next_exercise_announcement);
+    }
 
     exercise_music = $($(":selected")[1]).attr("music");
     play_sound(exercise_music);
@@ -159,6 +177,7 @@ function convert_seconds_to_time(given_seconds) {
 function sleep(seconds) {
     return new Promise(resolve => setTimeout(resolve, seconds * 1000));
 }
+
 /**
  * start exercise
  *
@@ -168,8 +187,10 @@ function sleep(seconds) {
  * Break before moving on to next exercise
  */
 async function start_exercise() {
+    responsive_mode = ($($(":selected")[2]).attr("play_mode") == "responsive")? true : false;
+    console.log("Responsive mode is: " + responsive_mode);
     // demo_mode: 3 min total; 20 sec interval; 10 sec break;
-    let total_workout_time = ($($(":selected")[1]).attr("workout") === "demo")? 3 : 30;
+    let total_workout_time = 1;//($($(":selected")[1]).attr("workout") === "demo")? 3 : 30;
     let interval_time = parseInt($($(":selected")[1]).attr("interval_time"));
     let break_time = parseInt($($(":selected")[1]).attr("break_time"));
     let total_exercises = (total_workout_time * 60)/(interval_time + break_time)
@@ -183,22 +204,24 @@ async function start_exercise() {
 
         wger_query("exercise/" + id);
 
-        await sleep(2)
+        // use sleep(sleep_time) to accomodate for longer waits
+        // note: you can chain these awaits, that may help with the pause timer in the future.
+        await sleep(sleep_time)
 
         display_time(interval_time, "#exercise_timer_section");
 
-        await sleep(2)
+        await sleep(sleep_time)
 
         setTimeout(() => {
             console.log("Start Break");
             $("[exercise_id=" + id + "]").hide();
             its_break_time(break_time);
-        }, interval_time * 1000);
+        }, (interval_time * 1000) + sleep_time);
 
         if ($("#total_workout_time").text() === "00:00:00") {
             stop_sound(exercise_music);
             stop_workout();
-            break;
+            return;
         }
         await sleep(interval_time + break_time);
 
@@ -231,7 +254,7 @@ function stop_workout(){
     $("#work_out_done").show();
 
     responsiveVoice.speak("Great Job!")
-    responsiveVoice.speak($("#total_consecutive_workouts_text").text())
+    responsiveVoice.speak($("#total_workouts_text").text())
 
     save_profile(true);
 }
