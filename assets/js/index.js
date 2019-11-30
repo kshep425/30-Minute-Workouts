@@ -67,6 +67,7 @@ async function set_exercises(exercise) {
     }
     $("#break_or_go").text("GO!")
     $("#exercise_name").text(ex.name)
+    $("#workout_description").text("Workout Description")
     $("#exercise_description").html(ex.description)
     $("[exercise_id=" + id + "]").show();
 
@@ -107,7 +108,8 @@ function stop_sound(song_audio) {
 function its_break_time(break_time=5) {
     $("#break_or_go").text("BREAK!")
     $("#exercise_name").text("")
-    $("#exercise_description").text("Next exercise is: ")
+    $("#exercise_description").text("")
+    $("#workout_description").text("")
     display_time(break_time, "#exercise_timer_section")
 }
 /**
