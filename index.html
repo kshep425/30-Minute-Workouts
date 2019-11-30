@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" href="./assets/Images/logo/Standard Logo Files/Black on Transparent.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
@@ -11,21 +12,24 @@
 </head>
 
 <body>
-    <section class="hero is-primary is-small has-text-justified">
+    <section class="hero is-primary is-small has-text-justified splash main">
         <div class="hero-body">
-            <div class="container">
-                <img src="./assets/Images/logo/Standard Logo Files/Original.png" alt="logo">
+            <div class="container columns">
+             <div class="column">
+                <img src="./assets/Images/logo/Standard Logo Files/Original.png" id="logo" alt="logo">
+             </div>
+            <div class="column">
                 <h1 class="title">
                     30 Minute Workout!
                 </h1>
+            
                 <h2 class="subtitle">
                     Survival of the Fittest
                 </h2>
             </div>
         </div>
     </section>
-    <section>
-        <a target="#" id="profile_link">Profile</a>
+    <section id="links">
         <a>Meal Plan</a>
     </section>
     <section class="container is fluid" id="profile">
@@ -59,6 +63,7 @@
             <button type="submit" value="Save" id="save_profile">Save</button>
         </form>
         <button class="button is primary is rounded" type="input" id="start">Start Workout!</button>
+        <br>
         <audio id="start_page_audio" controls>
             <source src="assets/sounds/Heavy Bass - Start Page.m4a" type="audio/mpeg">
             Your browser does not support the audio element
@@ -107,7 +112,9 @@
             <hr>
             <h1><b>GREAT JOB!!</b></h1>
             <div id="total_workouts_section">
-                <h2 id="total_workouts_text">You've completed <span id="total_consecutive_workouts" class="total"> 0 </span> days of consective workouts and <span id="total_workouts" class="total"> 0 </span> total workouts!</h2>
+                <h2 id="total_workouts_text">You've completed <span id="total_consecutive_workouts" class="total"> 0
+                    </span> days of consective workouts and <span id="total_workouts" class="total"> 0 </span> total
+                    workouts!</h2>
                 <h2 id="last_workout_month" hidden></h2>
                 <h2 id="last_workout_day" hidden></h2>
                 <h2 id="last_workout_year" hidden></h2>
@@ -126,8 +133,14 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
         </script>
+
+    <!-- JQUERY UI -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <!-- Responsive Voice -->
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=F7QN4dxF"></script>
+
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/script.js"></script>
     <script src="./assets/js/translate.js"></script>

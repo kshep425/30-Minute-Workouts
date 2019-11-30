@@ -304,7 +304,11 @@ function load_profile() {
         $("#last_workout_month").hide()
         $("#last_workout_day").hide()
         $("#last_workout_year").hide()
+        
     }
+        $("#profile").show()
+        $("#links").show()
+        $("#logo").addClass("nav_logo")
 }
 
 function progress() {
