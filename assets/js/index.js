@@ -4,13 +4,13 @@ const wger_api = {
     uri: "https://wger.de/api/v2/"
 }
 
-/** *The query data can be updated as needed.
+/** The query data can be updated as needed.
 *  For endpoint 'exercise/id': format and status;
 */
 const exercise_query_data = {
     format: "json"
 }
-
+//image query data
 const img_query_data = {
     language: "2",
     limit: '204'
@@ -55,11 +55,14 @@ const wger_query = function (endpoint, data=exercise_query_data) {
 }
 
 var exercise_music;
+// determine if in responsive mode
+var responsive_mode;
+var sleep_time=2;
 /**
  * Set Exercise info to display during time interval
  * @param {object} exercise This is the response from the exercise/id endpoint
  */
-function set_exercises(exercise) {
+async function set_exercises(exercise) {
     let ex = {
         name: exercise.name,
         id: exercise.id,
@@ -67,8 +70,29 @@ function set_exercises(exercise) {
     }
     $("#break_or_go").text("GO!")
     $("#exercise_name").text(ex.name)
+    $("#workout_description").text("Workout Description")
     $("#exercise_description").html(ex.description)
     $("[exercise_id=" + id + "]").show();
+
+    next_exercise_announcement = "Your next exercise is " + ex.name;
+
+
+    //responsiveVoice.speak(next_exercise_description)
+    if (responsive_mode){
+        // set sleep_time to 10 because it allows for time to get the prompts
+        sleep_time=10;
+        await sleep(2).then(async function are_you_ready(){
+            next_exercise_announcement_ready = next_exercise_announcement + " are you ready?"
+            responsiveVoice.speak(next_exercise_announcement_ready);
+            // the 4 second sleep is needed so that it gives time for responsive voice to finish.
+            return await sleep(4)
+        }).then(function are_you_ready_prompt(){
+            // TODO: enter wait for voice response here next
+            prompt("are_you_ready?");
+        })
+    } else{
+        responsiveVoice.speak(next_exercise_announcement);
+    }
 
     exercise_music = $($(":selected")[1]).attr("music");
     play_sound(exercise_music);
@@ -79,9 +103,10 @@ function set_exercises(exercise) {
  * Create a sound object using the sound constructor
  * @param {*} src path to sound
  */
-function play_sound(song_audio) {
+let play_sound = function (song_audio) {
     let m = document.getElementById(song_audio)
     m.play();
+    return true;
 }
 
 function stop_sound(song_audio) {
@@ -101,7 +126,8 @@ function stop_sound(song_audio) {
 function its_break_time(break_time=5) {
     $("#break_or_go").text("BREAK!")
     $("#exercise_name").text("")
-    $("#exercise_description").text("Next exercise is: ")
+    $("#exercise_description").text("")
+    $("#workout_description").text("")
     display_time(break_time, "#exercise_timer_section")
 }
 /**
@@ -151,6 +177,7 @@ function convert_seconds_to_time(given_seconds) {
 function sleep(seconds) {
     return new Promise(resolve => setTimeout(resolve, seconds * 1000));
 }
+
 /**
  * start exercise
  *
@@ -160,12 +187,14 @@ function sleep(seconds) {
  * Break before moving on to next exercise
  */
 async function start_exercise() {
+    responsive_mode = ($($(":selected")[2]).attr("play_mode") == "responsive")? true : false;
+    console.log("Responsive mode is: " + responsive_mode);
     // demo_mode: 3 min total; 20 sec interval; 10 sec break;
-    let total_workout_time = ($($(":selected")[1]).attr("workout") === "demo")? 3 : 30;
+    let total_workout_time = 1;//($($(":selected")[1]).attr("workout") === "demo")? 3 : 30;
     let interval_time = parseInt($($(":selected")[1]).attr("interval_time"));
     let break_time = parseInt($($(":selected")[1]).attr("break_time"));
     let total_exercises = (total_workout_time * 60)/(interval_time + break_time)
-    let exercise_ids = [4, 91, 93, 60, 128, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
+    let exercise_ids = [93, 60, 4, 91, 128, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203];
 
     display_time( total_workout_time * 60, "#total_workout_time");
 
@@ -175,22 +204,27 @@ async function start_exercise() {
 
         wger_query("exercise/" + id);
 
+        // use sleep(sleep_time) to accomodate for longer waits
+        // note: you can chain these awaits, that may help with the pause timer in the future.
+        await sleep(sleep_time)
+
         display_time(interval_time, "#exercise_timer_section");
 
-        await sleep(2)
+        await sleep(sleep_time)
 
         setTimeout(() => {
             console.log("Start Break");
             $("[exercise_id=" + id + "]").hide();
             its_break_time(break_time);
-        }, interval_time * 1000);
+        }, (interval_time * 1000) + sleep_time);
 
         if ($("#total_workout_time").text() === "00:00:00") {
             stop_sound(exercise_music);
             stop_workout();
-            break;
+            return;
         }
         await sleep(interval_time + break_time);
+
     }
 
     stop_workout();
@@ -218,6 +252,10 @@ function stop_workout(){
     $("#total_consecutive_workouts").text(total_consecutive_workouts);
     $("#total_workouts").text(total_workouts);
     $("#work_out_done").show();
+
+    responsiveVoice.speak("Great Job!")
+    responsiveVoice.speak($("#total_workouts_text").text())
+
     save_profile(true);
 }
 
@@ -233,7 +271,8 @@ function save_profile(update_date=false){
             month: $("#last_workout_month").text(),
             day: $("#last_workout_day").text(),
             year: $("#last_workout_year").text(),
-        }
+        },
+        play_mode: $("#play_mode").val()
     }
 
     if (update_date){
@@ -256,6 +295,7 @@ function load_profile() {
         $("#user_name").val(profile.user_name);
         $("#goal_pref").val(profile.goal);
         $("#intensity_pref").val(profile.intensity);
+        $("#play_mode").val(profile.play_mode)
         $("#total_consecutive_workouts").text(profile.total_consecutive_workouts);
         $("#total_workouts").text(profile.total_workouts);
         $("#last_workout_month").text(profile.last_workout_date.month)
@@ -283,7 +323,7 @@ function progress() {
 
 }
 
-//Check if last_workout_date is yesterday
+// Check if last_workout_date is yesterday
 function is_yesterday(lw_date){
     is_yesterday_bool = false;
     if (lw_date === undefined || lw_date === "" || typeof lw_date != "object"){
@@ -305,3 +345,16 @@ function is_yesterday(lw_date){
     return is_yesterday_bool;
 
 }
+
+/**
+ * Hot Shot Implicit Return (WHAT)
+ * Error handling es6 style in one line
+ * higher order function
+ * https://www.youtube.com/watch?v=BDqZLfBFeGk
+ * */
+const handleError = fn => (...params) => fn(...params).catch(console.error);
+/**
+ * example creating a function using handleError
+ * const safeYolo = handleError(yolo_function)
+ * safeYolo();
+ */

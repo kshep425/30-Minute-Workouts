@@ -20,7 +20,16 @@ $(document).ready(function () {
         save_profile();
     })
 
-    //play_sound("start_page_audio");
+//    responsiveVoice.enableWindowClickHook();
+
+    let num_clicks = 0
+    $(document).click(function (event){
+        if (num_clicks === 0){
+            play_sound("start_page_audio");
+            num_clicks += 1
+        }
+    })
+
     load_profile();
     wger_query("exerciseimage", img_query_data);
 
