@@ -45,8 +45,19 @@
                 <option workout="hard" interval_time=55 break_time=5 music="hard_audio">Kill me now!</option>
                 <option workout="demo" interval_time=20 break_time=10 music="demo_audio">Demo Mode</option>
             </select><br>
+            <br>Play Mode<br>
+            <select type="text" name="text" id="play_mode" class="profile_form">
+                <option play_mode="autoplay">Autoplay</option>
+                <option play_mode="responsive">Responsive</option>
+            </select>
+            <br>Play Description?<br>
+            <select type="text" name="text" id="play_description" class="profile_form">
+                <option>Yes</option>
+                <option>No</option>
+            </select>
             <button type="submit" value="Save" id="save_profile">Save</button>
         </form>
+        <button class="button is primary is rounded" type="input" id="start">Start Workout!</button>
         <audio id="start_page_audio" controls>
             <source src="assets/sounds/Heavy Bass - Start Page.m4a" type="audio/mpeg">
             Your browser does not support the audio element
@@ -60,7 +71,7 @@
         <h2 id="break_or_go">GO!</h2>
         <h3 id="exercise_name"></h3>
         <div id="exercise_imgs"></div>
-        <h4>Workout Description</h4>
+        <h4 id="workout_description">Workout Description</h4>
         <p id="exercise_description"></p>
         <div id="exercise_section"></div>
         <div id="exercise_timer_section"></div>
@@ -82,21 +93,20 @@
         </audio>
     </div>
     <div id="start_page">
-        <button class="button is primary is rounded" type="input" id="start">Start Workout!</button>
+
         <div id="workout_type_section"></div>
         <div id="music_type_section"></div>
         <div id="start_section"></div>
     </div>
     <div id="google_translate_element"></div>
-    <section class="container is fluid" >
-        <div id="work_out_done" hidden >
+    <section class="container is fluid">
+        <div id="work_out_done" hidden>
             <div id="success_section"></div>
             <h1><b>Workout Complete!!</b></h1>
             <hr>
             <h1><b>GREAT JOB!!</b></h1>
             <div id="total_workouts_section">
-                <h2>You've completed <span id="total_consecutive_workouts" class="total"> 0 </span> consective workouts!</h2>
-                <h2>You've completed <span id="total_workouts" class="total"> 0 </span> total workouts!</h2>
+                <h2 id="total_workouts_text">You've completed <span id="total_consecutive_workouts" class="total"> 0 </span> days of consective workouts and <span id="total_workouts" class="total"> 0 </span> total workouts!</h2>
                 <h2 id="last_workout_month" hidden></h2>
                 <h2 id="last_workout_day" hidden></h2>
                 <h2 id="last_workout_year" hidden></h2>
@@ -108,12 +118,15 @@
             <div id="challenge_section">
                 <h3>Challenge a Friend!</h3>
             </div>
+        </div>
     </section>
 
-    </div>
-    </section>
+    <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+        </script>
+    <!-- Responsive Voice -->
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=F7QN4dxF"></script>
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/script.js"></script>
     <script src="./assets/js/translate.js"></script>
