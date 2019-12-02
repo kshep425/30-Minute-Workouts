@@ -272,7 +272,9 @@ function save_profile(update_date=false){
             day: $("#last_workout_day").text(),
             year: $("#last_workout_year").text(),
         },
-        play_mode: $("#play_mode").val()
+        play_mode: $("#play_mode").val(),
+        play_description: $("#play_description").val()
+
     }
 
     if (update_date){
@@ -304,6 +306,7 @@ function load_profile() {
         $("#last_workout_month").hide()
         $("#last_workout_day").hide()
         $("#last_workout_year").hide()
+        $("#play_description").val(profile.play_description)
     }
 }
 
