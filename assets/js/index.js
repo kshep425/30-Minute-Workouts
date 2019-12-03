@@ -170,6 +170,11 @@ function sleep(seconds) {
 var exercise_started = false;
 // make img_id global, so the image can be hidden in its_break_time
 var img_id;
+var total_workout_time;
+var total_workout_time_left;
+var interval_time;
+var break_time;
+var exercise_music;
 /**
  * start exercise
  *
@@ -349,14 +354,7 @@ function voiceStartCallback() {
 var responsive_mode;
 
 console.log("Responsive mode is: " + responsive_mode);
-// demo_mode: 3 min total; 20 sec interval; 10 sec break;
-var total_workout_time = ($($(":selected")[1]).attr("workout") === "demo") ? 3 : 90;
-var total_workout_time_left = ($($(":selected")[1]).attr("workout") === "demo") ? 3 : 90;
-var interval_time = parseInt($($(":selected")[1]).attr("interval_time"));
-var break_time = parseInt($($(":selected")[1]).attr("break_time"));
-var countEndSpeaking = 0
-var exercise_music = $($(":selected")[1]).attr("music");
-
+var countEndSpeaking = 0;
 
 function voiceEndCallback() {
     //Since there are two phrases to let the speaker talk, we need to at least increment one more time so
