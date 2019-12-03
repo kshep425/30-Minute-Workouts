@@ -19,13 +19,15 @@ $(document).ready(function() {
         save_profile();
     })
 
-    //    responsiveVoice.enableWindowClickHook();
-
     let num_clicks = 0
     $(document).click(function(event) {
         if (num_clicks === 0) {
             play_sound('start_audio');
             num_clicks += 1
+        }
+        // Do not play start_audio if the start button is clicked
+        if (event.target.getAttribute("id") === "start") {
+            stop_sound("start_audio")
         }
     })
 
