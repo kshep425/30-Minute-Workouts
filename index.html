@@ -25,7 +25,7 @@
     </section>
     <section>
         <a target="#" id="profile_link">Profile</a>
-        <a>Meal Plan</a>
+        <a href="nutrition.html" id="nutrition_link">Meal Plan</a>
     </section>
     <section class="container is fluid" id="profile">
         <b>Profile</b>
@@ -75,20 +75,28 @@
         <p id="exercise_description"></p>
         <div id="exercise_section"></div>
         <div id="exercise_timer_section"></div>
+        <audio loop id="start_audio">
+            <source src="assets/sounds/Start_Page1.m4a">
+            Start Audio Not Supported
+        </audio>
+        <audio loop id="end_audio">
+            <source src="assets/sounds/Complete_Page.m4a">
+            Complete Audio Not Supported
+        </audio>
         <audio id="demo_audio">
-            <source src="assets/sounds/Heavy Bass - Start Page.m4a">
+            <source src="assets/sounds/Workout_Demo.m4a">
             Demo Audio Not Supported
         </audio>
         <audio id="lazy_audio">
-            <source src="assets/sounds/Heavy Bass - Start Page.m4a">
+            <source src="assets/sounds/workoutLazy2.m4a">
             Lazy Audio Not Supported
         </audio>
         <audio id="regular_audio">
-            <source src="assets/sounds/NicerLoop.m4a">
+            <source src="assets/sounds/workoutRegular2.m4a">
             Regular Audio Not Supported
         </audio>
         <audio id="hard_audio">
-            <source src="assets/sounds/Exercise_Track.m4a">
+            <source src="assets/sounds/Workout_Hard.m4a">
             Hard Audio Not Supported
         </audio>
     </div>
@@ -122,9 +130,8 @@
     </section>
 
     <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
-        </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
     <!-- Responsive Voice -->
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=F7QN4dxF"></script>
     <script src="./assets/js/index.js"></script>
