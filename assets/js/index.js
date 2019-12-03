@@ -96,6 +96,8 @@ function stop_sound(song_audio) {
     let m = document.getElementById(song_audio)
     m.pause();
 }
+
+var is_break_time = false;
 /**
  * It's Break Time!
  * This will:
@@ -108,6 +110,7 @@ function stop_sound(song_audio) {
  */
 function its_break_time(break_time = 5) {
     console.log("It's Breaktime: " + new Date)
+    is_break_time = true;
     $("#break_or_go").text("BREAK!")
     $("#exercise_name").text("")
     $("#exercise_description").text("")
@@ -178,7 +181,7 @@ var img_id;
 async function start_exercise() {
     let total_exercises = (total_workout_time * 60) / (interval_time + break_time)
     let exercise_ids = [60, 91, 128, 4, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203, 93];
-
+    stop_sound("start_audio")
     for (let i = 0; i < total_exercises; i++) {
         img_id = exercise_ids[i]
         console.log("Start Exercise: " + img_id);
@@ -204,7 +207,7 @@ function stop_workout() {
 
     console.log("Workout done")
     stop_sound(exercise_music);
-    play_sound(end_audio);
+    play_sound("complete_page_audio");
     $("#work_out_page").hide();
     let last_workout_date = {
         month: $("#last_workout_month").text(),
@@ -401,7 +404,8 @@ async function start_exercise_timers_and_music() {
         await sleep(break_time).then(() => {
             console.log(new Date)
             console.log("Set exercise_started to false")
-            exercise_started = false
+            exercise_started = false;
+            is_break_time = false;
         })
     })
 }
@@ -427,16 +431,26 @@ function wait_for_exercise_start_and_finish() {
     console.log("Wait for exercise start and finish: " + new Date)
     return new Promise(function(resolve) {
         let ex_and_break_wait = setInterval(async function() {
+            // Set a variable to know the exercise has started
             if (exercise_started === true) {
-                console.log("Exercise has actually started: " + new Date);
                 s = 1;
-            }
 
+                // End workout if it is_break_time is true and total_workout_time_left is 0.
+                if(is_break_time === true && total_workout_time_left <= 0){
+                    console.log(("Workout complete: " + new Date))
+                    clearInterval(ex_and_break_wait)
+                    return resolve("Workout complete: " + new Date)
+                }
+            }
+            // If exercise has started and stopped (which means it includes break time)
+            // Go to the next exercise
             if (s === 1 && exercise_started === false) {
                 console.log("Exercise has started and ended: " + new Date);
                 clearInterval(ex_and_break_wait)
                 return resolve("Go to next exercise please");
             }
+
+
         }, 1000)
     })
 }
