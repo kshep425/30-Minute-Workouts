@@ -24,7 +24,6 @@
         </div>
     </section>
     <section>
-        <a target="#" id="profile_link">Profile</a>
         <a href="nutrition.html" id="nutrition_link">Meal Plan</a>
     </section>
     <section class="container is fluid" id="profile">
@@ -40,10 +39,10 @@
             </select>
             <br>Intensity Preference<br>
             <select type="text" name="text" id="intensity_pref" class="profile_form">
-                <option workout="lazy" interval_time=30 break_time=30 music="lazy_audio">Lazy AH</option>
-                <option workout="regular" interval_time=45 break_time=15 music="regular_audio">Hard, but doable</option>
-                <option workout="hard" interval_time=55 break_time=5 music="hard_audio">Kill me now!</option>
-                <option workout="demo" interval_time=20 break_time=10 music="demo_audio">Demo Mode</option>
+                <option workout="lazy" interval_time=33 break_time=15 music="lazy_audio">Lazy AH</option>
+                <option workout="regular" interval_time=52 break_time=10 music="regular_audio">Hard, but doable</option>
+                <option workout="hard" interval_time=60 break_time=5 music="hard_audio">Kill me now!</option>
+                <option workout="demo" interval_time=26 break_time=10 music="demo_audio">Demo Mode</option>
             </select><br>
             <br>Play Mode<br>
             <select type="text" name="text" id="play_mode" class="profile_form">
@@ -58,10 +57,6 @@
             <button type="submit" value="Save" id="save_profile">Save</button>
         </form>
         <button class="button is primary is rounded" type="input" id="start">Start Workout!</button>
-        <audio id="start_page_audio" controls>
-            <source src="assets/sounds/Heavy Bass - Start Page.m4a" type="audio/mpeg">
-            Your browser does not support the audio element
-        </audio>
     </section>
 
     <div id="work_out_page" hidden>
@@ -75,13 +70,13 @@
         <p id="exercise_description"></p>
         <div id="exercise_section"></div>
         <div id="exercise_timer_section"></div>
-        <audio loop id="start_audio">
+        <audio id="start_audio">
             <source src="assets/sounds/Start_Page1.m4a">
             Start Audio Not Supported
         </audio>
-        <audio id="end_audio">
-            <source src="assets/sounds/Complete_Page.m4a">
-            Complete Audio Not Supported
+        <audio id="complete_page_audio">
+            <source src="./assets/sounds/Complete_Page.m4a">
+            Demo Audio Not Supported
         </audio>
         <audio loop id="demo_audio">
             <source src="assets/sounds/Workout_Demo.m4a">
