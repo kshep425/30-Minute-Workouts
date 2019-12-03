@@ -181,7 +181,7 @@ var img_id;
 async function start_exercise() {
     let total_exercises = (total_workout_time * 60) / (interval_time + break_time)
     let exercise_ids = [60, 91, 128, 4, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203, 93];
-    stop_sound("start_audio")
+
     for (let i = 0; i < total_exercises; i++) {
         img_id = exercise_ids[i]
         console.log("Start Exercise: " + img_id);
