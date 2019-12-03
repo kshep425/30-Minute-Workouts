@@ -5,12 +5,12 @@ const wger_api = {
 }
 
 /** The query data can be updated as needed.
-*  For endpoint 'exercise/id': format and status;
-*/
+ *  For endpoint 'exercise/id': format and status;
+ */
 const exercise_query_data = {
-    format: "json"
-}
-//image query data
+        format: "json"
+    }
+    //image query data
 const img_query_data = {
     language: "2",
     limit: '204'
@@ -20,21 +20,21 @@ const img_query_data = {
  * Get exercises using wger_query
  * @param {string} endpoint
  */
-const wger_query = function (endpoint, data = exercise_query_data) {
+const wger_query = function(endpoint, data = exercise_query_data) {
 
     $.ajax({
-        beforeSend: function (xhr) {
+        beforeSend: function(xhr) {
             xhr.setRequestHeader("Authorization", "Token " + wger_api.key);
             xhr.setRequestHeader("Accept", "application/json;indent=4")
         },
         url: wger_api.uri + endpoint,
         data: data,
         method: "GET"
-    }).then(function (response) {
+    }).then(function(response) {
         console.log(response);
 
         if (endpoint.includes("exerciseimage")) {
-            response.results.forEach(function (image) {
+            response.results.forEach(function(image) {
                 let img_holder = $('<img>');
                 img_holder.attr('src', image.image);
                 img_holder.attr('width', '200px');
@@ -47,7 +47,7 @@ const wger_query = function (endpoint, data = exercise_query_data) {
         } else {
             set_exercises(response);
         }
-    }).fail(function (err) {
+    }).fail(function(err) {
         console.log("Query Failed!")
         console.log(err)
         alert("Query Failed!")
@@ -86,7 +86,7 @@ async function set_exercises(exercise) {
  * Create a sound object using the sound constructor
  * @param {*} src path to sound
  */
-let play_sound = function (song_audio) {
+let play_sound = function(song_audio) {
     let m = document.getElementById(song_audio)
     m.play();
     return true;
@@ -96,6 +96,8 @@ function stop_sound(song_audio) {
     let m = document.getElementById(song_audio)
     m.pause();
 }
+
+var is_break_time = false;
 /**
  * It's Break Time!
  * This will:
@@ -108,6 +110,7 @@ function stop_sound(song_audio) {
  */
 function its_break_time(break_time = 5) {
     console.log("It's Breaktime: " + new Date)
+    is_break_time = true;
     $("#break_or_go").text("BREAK!")
     $("#exercise_name").text("")
     $("#exercise_description").text("")
@@ -138,10 +141,10 @@ function display_time(time_left, section) {
 }
 
 /**  Convert seconds to Time
-* @param {number} given_seconds
-* @returns {string} Time String formatted hh:mm:ss
-* referenced on 11/24/2019: https://www.geeksforgeeks.org/how-to-convert-seconds-to-time-string-format-hhmmss-using-javascript/
-*/
+ * @param {number} given_seconds
+ * @returns {string} Time String formatted hh:mm:ss
+ * referenced on 11/24/2019: https://www.geeksforgeeks.org/how-to-convert-seconds-to-time-string-format-hhmmss-using-javascript/
+ */
 function convert_seconds_to_time(given_seconds) {
 
     let dateObj = new Date(given_seconds * 1000);
@@ -149,9 +152,9 @@ function convert_seconds_to_time(given_seconds) {
     let minutes = dateObj.getUTCMinutes();
     let seconds = dateObj.getSeconds();
 
-    let time_string = hours.toString().padStart(2, '0')
-        + ':' + minutes.toString().padStart(2, '0')
-        + ':' + seconds.toString().padStart(2, '0');
+    let time_string = hours.toString().padStart(2, '0') +
+        ':' + minutes.toString().padStart(2, '0') +
+        ':' + seconds.toString().padStart(2, '0');
 
     return time_string;
 }
@@ -167,6 +170,11 @@ function sleep(seconds) {
 var exercise_started = false;
 // make img_id global, so the image can be hidden in its_break_time
 var img_id;
+var total_workout_time;
+var total_workout_time_left;
+var interval_time;
+var break_time;
+var exercise_music;
 /**
  * start exercise
  *
@@ -201,8 +209,10 @@ async function start_exercise() {
 }
 
 function stop_workout() {
+
     console.log("Workout done")
     stop_sound(exercise_music);
+    play_sound("complete_page_audio");
     $("#work_out_page").hide();
     let last_workout_date = {
         month: $("#last_workout_month").text(),
@@ -241,7 +251,9 @@ function save_profile(update_date = false) {
             day: $("#last_workout_day").text(),
             year: $("#last_workout_year").text(),
         },
-        play_mode: $("#play_mode").val()
+        play_mode: $("#play_mode").val(),
+        play_description: $("#play_description").val()
+
     }
 
     if (update_date) {
@@ -273,13 +285,14 @@ function load_profile() {
         $("#last_workout_month").hide()
         $("#last_workout_day").hide()
         $("#last_workout_year").hide()
+        $("#play_description").val(profile.play_description)
     }
 }
 
 function progress() {
     sec = 0;
 
-    var proBar = setInterval(function () {
+    var proBar = setInterval(function() {
         let i = sec / (total_workout_time * 60)
         $("#progress_bar").attr("value", i);
         //console.log($("#progress_bar").attr("value"));
@@ -332,6 +345,7 @@ const handleError = fn => (...params) => fn(...params).catch(console.error);
 // Declared two global variables countEndSpeaking and interval_time
 // Changed the interval_time to global before it was locally to start_exercise function
 var clear_total_workout_time;
+
 function voiceStartCallback() {
     console.log("Voice started");
     stop_sound(exercise_music);
@@ -340,14 +354,7 @@ function voiceStartCallback() {
 var responsive_mode;
 
 console.log("Responsive mode is: " + responsive_mode);
-// demo_mode: 3 min total; 20 sec interval; 10 sec break;
-var total_workout_time = ($($(":selected")[1]).attr("workout") === "demo") ? 3 : 90;
-var total_workout_time_left = ($($(":selected")[1]).attr("workout") === "demo") ? 3 : 90;
-var interval_time = parseInt($($(":selected")[1]).attr("interval_time"));
-var break_time = parseInt($($(":selected")[1]).attr("break_time"));
-var countEndSpeaking = 0
-var exercise_music = $($(":selected")[1]).attr("music");
-
+var countEndSpeaking = 0;
 
 function voiceEndCallback() {
     //Since there are two phrases to let the speaker talk, we need to at least increment one more time so
@@ -360,7 +367,7 @@ function voiceEndCallback() {
         // start exercise timer
         responsive_mode = ($($(":selected")[2]).attr("play_mode") == "responsive") ? true : false;
         console.log("Responsive mode is: " + responsive_mode)
-        if (responsive_mode){
+        if (responsive_mode) {
             prompt("are_you_ready?");
             start_exercise_timers_and_music()
         } else {
@@ -382,20 +389,21 @@ async function start_exercise_timers_and_music() {
     exercise_started = true
     console.log("start_exercise_timers_and_music")
     console.log(new Date)
-    // restart total_workout_timer
+        // restart total_workout_timer
     display_total_workout_time();
     // start interval_timer
     display_time(interval_time, "#exercise_timer_section");
     // play music
     play_sound(exercise_music)
-    await sleep(interval_time).then(async function () {
+    await sleep(interval_time).then(async function() {
         console.log(new Date)
-        // display break_time
+            // display break_time
         its_break_time(break_time)
         await sleep(break_time).then(() => {
             console.log(new Date)
             console.log("Set exercise_started to false")
-            exercise_started = false
+            exercise_started = false;
+            is_break_time = false;
         })
     })
 }
@@ -419,17 +427,28 @@ function display_total_workout_time() {
 function wait_for_exercise_start_and_finish() {
     let s = 0
     console.log("Wait for exercise start and finish: " + new Date)
-    return new Promise(function (resolve) {
-        let ex_and_break_wait = setInterval(async function () {
-        if (exercise_started === true){
-            console.log("Exercise has actually started: " + new Date);
-            s = 1;
-        }
+    return new Promise(function(resolve) {
+        let ex_and_break_wait = setInterval(async function() {
+            // Set a variable to know the exercise has started
+            if (exercise_started === true) {
+                s = 1;
 
-        if (s === 1 && exercise_started === false) {
-            console.log("Exercise has started and ended: " + new Date);
-            clearInterval(ex_and_break_wait)
-            return resolve("Go to next exercise please");
-        }
-    }, 1000)})
+                // End workout if it is_break_time is true and total_workout_time_left is 0.
+                if(is_break_time === true && total_workout_time_left <= 0){
+                    console.log(("Workout complete: " + new Date))
+                    clearInterval(ex_and_break_wait)
+                    return resolve("Workout complete: " + new Date)
+                }
+            }
+            // If exercise has started and stopped (which means it includes break time)
+            // Go to the next exercise
+            if (s === 1 && exercise_started === false) {
+                console.log("Exercise has started and ended: " + new Date);
+                clearInterval(ex_and_break_wait)
+                return resolve("Go to next exercise please");
+            }
+
+
+        }, 1000)
+    })
 }
