@@ -44,15 +44,13 @@
                     </div>
                     <div id="navbarBasicExample" class="navbar-menu is active">
                         <div class="navbar-start">
-                            <a class="navbar-item">Meal Plan</a>
-
+                                <a href="nutrition.html" class="navbar-item" id="nutrition_link">Meal Plan</a>
                         </div>
                     </div>
 
                 </nav>
-        <!-- <a>Meal Plan</a> -->
-    </section>
-    <section class="container is fluid" id="profile">
+            </section>
+        <section class="container is fluid" id="profile">
         <b>Profile</b>
         <form>
             First name:<br>
@@ -65,10 +63,10 @@
             </select>
             <br>Intensity Preference<br>
             <select type="text" name="text" id="intensity_pref" class="profile_form">
-                <option workout="lazy" interval_time=30 break_time=30 music="lazy_audio">Lazy AH</option>
-                <option workout="regular" interval_time=45 break_time=15 music="regular_audio">Hard, but doable</option>
-                <option workout="hard" interval_time=55 break_time=5 music="hard_audio">Kill me now!</option>
-                <option workout="demo" interval_time=20 break_time=10 music="demo_audio">Demo Mode</option>
+                <option workout="lazy" interval_time=33 break_time=15 music="lazy_audio">Lazy AH</option>
+                <option workout="regular" interval_time=55 break_time=10 music="regular_audio">Hard, but doable</option>
+                <option workout="hard" interval_time=60 break_time=5 music="hard_audio">Kill me now!</option>
+                <option workout="demo" interval_time=26 break_time=10 music="demo_audio">Demo Mode</option>
             </select><br>
             <br>Play Mode<br>
             <select type="text" name="text" id="play_mode" class="profile_form">
@@ -101,20 +99,28 @@
         <p id="exercise_description"></p>
         <div id="exercise_section"></div>
         <div id="exercise_timer_section"></div>
-        <audio id="demo_audio">
-            <source src="assets/sounds/Heavy Bass - Start Page.m4a">
+        <audio id="start_audio">
+            <source src="assets/sounds/Start_Page1.m4a">
+            Start Audio Not Supported
+        </audio>
+        <audio id="complete_page_audio">
+            <source src="./assets/sounds/Complete_Page.m4a">
             Demo Audio Not Supported
         </audio>
-        <audio id="lazy_audio">
-            <source src="assets/sounds/Heavy Bass - Start Page.m4a">
+        <audio loop id="demo_audio">
+            <source src="assets/sounds/Workout_Demo.m4a">
+            Demo Audio Not Supported
+        </audio>
+        <audio loop id="lazy_audio">
+            <source src="assets/sounds/workoutLazy2.m4a">
             Lazy Audio Not Supported
         </audio>
-        <audio id="regular_audio">
-            <source src="assets/sounds/NicerLoop.m4a">
+        <audio loop id="regular_audio">
+            <source src="assets/sounds/workoutRegular2.m4a">
             Regular Audio Not Supported
         </audio>
-        <audio id="hard_audio">
-            <source src="assets/sounds/Exercise_Track.m4a">
+        <audio loop id="hard_audio">
+            <source src="assets/sounds/Workout_Hard.m4a">
             Hard Audio Not Supported
         </audio>
     </div>
@@ -163,7 +169,6 @@
 
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/script.js"></script>
-    <script src="./assets/js/translate.js"></script>
 </body>
 
 </html>
