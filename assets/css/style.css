@@ -66,6 +66,7 @@ input {
 .exercise_timer_section {
     font-size: 36; /*xx-large;*/
     font-style: oblique;
+
 }
 
 .total {
@@ -73,6 +74,11 @@ input {
     margin-inline-end: 2px;
 }
 
+.logo_column {
+    min-width: 50px;
+    min-height: fit-content;
+    
+}
 @media only screen and (max-width: 760px) {
     #start {
         align-self: auto;
