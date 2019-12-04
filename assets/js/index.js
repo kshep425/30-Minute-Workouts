@@ -70,6 +70,7 @@ async function set_exercises(exercise) {
     }
     $("#exercise_url").attr("src", ex.url);
     $("#exercise_url").show();
+    $("#header").hide();
     //$("[exercise_id=" + img_id + "]").show();
 
     // Put description in next_exercise_announcement if play description is selected.
@@ -120,6 +121,7 @@ function its_break_time(break_time = 5) {
     $("[exercise_id=" + img_id + "]").hide();
     $("#exercise_url").hide();
     $("#embed").hide();
+    $("#header").show();
     display_time(break_time, "#exercise_timer_section")
     stop_sound(exercise_music)
 }
@@ -217,6 +219,7 @@ function stop_workout() {
     stop_sound(exercise_music);
     play_sound("complete_page_audio");
     $("#work_out_page").hide();
+    $("#header").show();
     let last_workout_date = {
         month: $("#last_workout_month").text(),
         day: $("#last_workout_day").text(),
