@@ -290,6 +290,9 @@ function load_profile() {
         $("#last_workout_year").hide()
         $("#play_description").val(profile.play_description)
     }
+        $("#profile").show()
+        $("#links").show()
+        $("#logo").addClass("nav_logo")
 }
 
 function progress() {

@@ -39,8 +39,16 @@ $(document).ready(function() {
             stop_sound("start_audio")
         }
     })
+    var options = {to: {width: 55, height: 55}};
+    // var options = {percent: 50}};
+$("#logo").effect("scale", options, 1000);
 
-    load_profile();
+// function timeout(){
+    setTimeout(()=>{
+        load_profile();
+    }, 5000)
+// }
+    
     wger_query("exerciseimage", img_query_data);
 
 });
