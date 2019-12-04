@@ -5,8 +5,8 @@ $(document).ready(function() {
 
         // Set the times after start_button is selected
         // demo_mode: 3 min total; 20 sec interval; 10 sec break;
-        total_workout_time = ($($(":selected")[1]).attr("workout") === "demo") ? 3 : 90; //30 *60;
-        total_workout_time_left = ($($(":selected")[1]).attr("workout") === "demo") ? 3 : 90; //30 * 60;
+        total_workout_time = ($($(":selected")[1]).attr("workout") === "demo") ? 180 : 90; //30 *60;
+        total_workout_time_left = ($($(":selected")[1]).attr("workout") === "demo") ? 180 : 90; //30 * 60;
         interval_time = parseInt($($(":selected")[1]).attr("interval_time"));
         break_time = parseInt($($(":selected")[1]).attr("break_time"));
         exercise_music = $($(":selected")[1]).attr("music");

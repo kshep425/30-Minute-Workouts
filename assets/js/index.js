@@ -59,16 +59,18 @@ const wger_query = function(endpoint, data = exercise_query_data) {
  * @param {object} exercise This is the response from the exercise/id endpoint
  */
 async function set_exercises(exercise) {
-    let ex = {
-        name: exercise.name,
-        id: exercise.id,
-        description: exercise.description
-    }
+    let ex = exercise
     $("#break_or_go").text("GO!")
     $("#exercise_name").text(ex.name)
     $("#workout_description").text("Workout Description")
     $("#exercise_description").html(ex.description)
-    $("[exercise_id=" + img_id + "]").show();
+    if (ex.embed){
+        embed = $("#embed").html(ex.embed)
+        $("#embed").show()
+    }
+    $("#exercise_url").attr("src", ex.url);
+    $("#exercise_url").show();
+    //$("[exercise_id=" + img_id + "]").show();
 
     // Put description in next_exercise_announcement if play description is selected.
     if ($("#play_description").val() === "Yes") {
@@ -116,6 +118,8 @@ function its_break_time(break_time = 5) {
     $("#exercise_description").text("")
     $("#workout_description").text("")
     $("[exercise_id=" + img_id + "]").hide();
+    $("#exercise_url").hide();
+    $("#embed").hide();
     display_time(break_time, "#exercise_timer_section")
     stop_sound(exercise_music)
 }
@@ -185,13 +189,12 @@ var exercise_music;
  */
 async function start_exercise() {
     let total_exercises = (total_workout_time * 60) / (interval_time + break_time)
-    let exercise_ids = [60, 91, 128, 4, 341, 260, 358, 326, 376, 383, 338, 367, 325, 172, 295, 361, 238, 195, 325, 400, 417, 393, 359, 203, 93];
 
     for (let i = 0; i < total_exercises; i++) {
-        img_id = exercise_ids[i]
-        console.log("Start Exercise: " + img_id);
+        let exercise = demo_exercises[i]
+        console.log("Start Exercise: " + exercise.name);
         // query the exercise and display it.
-        wger_query("exercise/" + img_id);
+        set_exercises(exercise)
 
         // wait for exercise to start
         await wait_for_exercise_start_and_finish()
@@ -286,10 +289,14 @@ function load_profile() {
         $("#last_workout_day").hide()
         $("#last_workout_year").hide()
 <<<<<<< HEAD
+<<<<<<< HEAD
         
 =======
         $("#play_description").val(profile.play_description)
 >>>>>>> c1deba1881930f9d04cb4f6cce36953c3ad7fb43
+=======
+        $("#play_description").val(profile.play_description)
+>>>>>>> c2234e3a364f26585b00943a903deef0d960e41f
     }
         $("#profile").show()
         $("#links").show()
