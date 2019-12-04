@@ -1,9 +1,12 @@
 .main {
     background-image: url("../Images/brickwall/brickwall.png");
-
 }
 
-h1, h2, h3, h4, p {
+h1,
+h2,
+h3,
+h4,
+p {
     text-align: center;
 }
 
@@ -14,12 +17,13 @@ h2 {
 #links {
     display: none;
 }
-#logo{
+
+#logo {
     position: absolute;
     margin: auto;
-    
 }
-.nav_logo{
+
+.nav_logo {
     width: 40px;
     height: 40px;
     display: flex;
@@ -30,28 +34,27 @@ h2 {
     text-align: center;
     text-emphasis: bold;
     display: none;
-
 }
 
 #start-page {
     align-self: center;
-    width:100%;
+    width: 100%;
 }
 
 #start {
     align-self: auto;
-    margin-left: 45%;
     color: #00d1b2, #fff;
+    margin-bottom: 15px;
 }
 
 button {
-    color:#00d1b2;
+    color: #00d1b2;
 }
 
 form {
     margin-left: 30%;
     margin-right: 30%;
-    background-color:#00d1b2;
+    background-color: #00d1b2;
 }
 
 input {
@@ -64,7 +67,8 @@ input {
 }
 
 .exercise_timer_section {
-    font-size: 36; /*xx-large;*/
+    font-size: 36;
+    /*xx-large;*/
     font-style: oblique;
 }
 
@@ -78,4 +82,4 @@ input {
         align-self: auto;
         margin-left: auto;
     }
-  }
+}

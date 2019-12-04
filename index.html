@@ -18,7 +18,7 @@
                 <div class="column">
                     <img src="./assets/Images/logo/Standard Logo Files/Original.png" id="logo" alt="logo">
                 </div>
-                
+
                 <div class="column">
                     <h1 class="title">
                         30 Minute Workout!
@@ -33,24 +33,23 @@
     <section id="links">
         <!-- Code for the Navbar -->
         <nav class="navbar is-primary" role="navigate" aria-label="main-navigation">
-                    <div class="navbar-brand">
-                        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-                            data-target="navBasicExample">
-                            <span aria-hidden="true"></span>
-                            <span aria-hidden="true"></span>
-                            <span aria-hidden="true"></span>
-                            
-                        </a>
-                    </div>
-                    <div id="navbarBasicExample" class="navbar-menu is active">
-                        <div class="navbar-start">
-                                <a href="nutrition.html" class="navbar-item" id="nutrition_link">Meal Plan</a>
-                        </div>
-                    </div>
+            <div class="navbar-brand">
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
 
-                </nav>
-            </section>
-        <section class="container is fluid" id="profile">
+                </a>
+            </div>
+            <div id="navbarBasicExample" class="navbar-menu is active">
+                <div class="navbar-start">
+                    <a href="nutrition.html" class="navbar-item" id="nutrition_link">Meal Plan</a>
+                </div>
+            </div>
+
+        </nav>
+    </section>
+    <section class="container is fluid" id="profile">
         <b>Profile</b>
         <form>
             First name:<br>
@@ -80,12 +79,19 @@
             </select>
             <button type="submit" value="Save" id="save_profile">Save</button>
         </form>
-        <button class="button is primary is rounded" type="input" id="start">Start Workout!</button>
+
+
+        <button class="button is primary is rounded is-centered" type="input" id="start">Start Workout!</button>
+
         <br>
-        <audio id="start_page_audio" controls>
-            <source src="assets/sounds/Heavy Bass - Start Page.m4a" type="audio/mpeg">
-            Your browser does not support the audio element
-        </audio>
+
+
+        <audio class='is-centered' id="start_page_audio" controls>
+                <source src="assets/sounds/Heavy Bass - Start Page.m4a" type="audio/mpeg">
+                Your browser does not support the audio element
+            </audio>
+
+
     </section>
 
     <div id="work_out_page" hidden>
@@ -142,8 +148,8 @@
             <h1><b>GREAT JOB!!</b></h1>
             <div id="total_workouts_section">
                 <h2 id="total_workouts_text">You've completed <span id="total_consecutive_workouts" class="total"> 0
-                    </span> days of consective workouts and <span id="total_workouts" class="total"> 0 </span> total
-                    workouts!</h2>
+                    </span> days of consective workouts and <span id="total_workouts" class="total"> 0 </span> total workouts!
+                </h2>
                 <h2 id="last_workout_month" hidden></h2>
                 <h2 id="last_workout_day" hidden></h2>
                 <h2 id="last_workout_year" hidden></h2>
@@ -159,9 +165,8 @@
     </section>
 
     <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
-        </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
 
     <!-- JQUERY UI -->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
