@@ -495,12 +495,13 @@ function wait_for_exercise_start_and_finish() {
 }
 
 function get_ready_response(){
+    console.log("get_ready_response")
     return new Promise(function(resolve) {
         responsiveVoice.speak("Are you ready?")
         $("#dialog").dialog("open");
         console.log(new Date)
         let clear_response_wait = setInterval(function get_response(){
-            console.log(new Date)
+            console.log("Start voice recognition " + new Date);
             recognition.start();
             recognition.onresult = function(event) {
                 // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
@@ -527,12 +528,13 @@ function get_ready_response(){
                 } else{
                     console.log("Need a ready response!" + new Date)
                     responsiveVoice.speak("We did not recognize your response, please say ready when you are ready to start your workout.")
+                    return get_ready_response()
                 }
 
                 console.log('Confidence: ' + event.results[0][0].confidence);
             } //recognition on result
 
-        }, 5000) // setInterval
+        }, 1000) // setInterval
     }) // promise
 } //get_ready_response
 $( "#dialog" ).dialog({
