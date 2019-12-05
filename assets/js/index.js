@@ -1,3 +1,30 @@
+//https://github.com/mdn/web-speech-api/blob/master/speech-color-changer/script.js
+try {
+    var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    var recognition = new SpeechRecognition();
+    var SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList
+  var SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent
+
+  }
+  catch(e) {
+    console.error(e);
+    $('.no-browser-support').show();
+    $('.app').hide();
+  }
+
+
+var prompts = ['yes','ready'];
+var grammar = '#JSGF V1.0; grammar prompts; public <color> = ' + prompts.join(' | ') + ' ;'
+
+var recognition = new SpeechRecognition();
+var speechRecognitionList = new SpeechGrammarList();
+speechRecognitionList.addFromString(grammar, 1);
+recognition.grammars = speechRecognitionList;
+//recognition.continuous = false;
+recognition.lang = 'en-US';
+recognition.interimResults = false;
+recognition.maxAlternatives = 1;
+
 /** The query url and api are preset to be called. */
 const wger_api = {
     key: "25d6f241707205c0e6e01e38c8a191d27f8b1b8d",
@@ -70,6 +97,7 @@ async function set_exercises(exercise) {
     }
     $("#exercise_url").attr("src", ex.url);
     $("#exercise_url").show();
+    $("#header").hide();
     //$("[exercise_id=" + img_id + "]").show();
 
     // Put description in next_exercise_announcement if play description is selected.
@@ -120,6 +148,7 @@ function its_break_time(break_time = 5) {
     $("[exercise_id=" + img_id + "]").hide();
     $("#exercise_url").hide();
     $("#embed").hide();
+    $("#header").show();
     display_time(break_time, "#exercise_timer_section")
     stop_sound(exercise_music)
 }
@@ -217,6 +246,7 @@ function stop_workout() {
     stop_sound(exercise_music);
     play_sound("complete_page_audio");
     $("#work_out_page").hide();
+    $("#header").show();
     let last_workout_date = {
         month: $("#last_workout_month").text(),
         day: $("#last_workout_day").text(),
@@ -370,7 +400,7 @@ var responsive_mode;
 console.log("Responsive mode is: " + responsive_mode);
 var countEndSpeaking = 0;
 
-function voiceEndCallback() {
+async function voiceEndCallback() {
     //Since there are two phrases to let the speaker talk, we need to at least increment one more time so
     // it knows that after the second phrase it will start to display the timers and play music
     countEndSpeaking++;
@@ -382,9 +412,14 @@ function voiceEndCallback() {
         responsive_mode = ($($(":selected")[2]).attr("play_mode") == "responsive") ? true : false;
         console.log("Responsive mode is: " + responsive_mode)
         if (responsive_mode) {
-            prompt("are_you_ready?");
-            start_exercise_timers_and_music()
+            // open dialog and wait for ready response
+            await get_ready_response().then(function(response){
+                console.log(response)
+
+                start_exercise_timers_and_music()
+            })
         } else {
+
             start_exercise_timers_and_music()
         }
 
@@ -466,3 +501,56 @@ function wait_for_exercise_start_and_finish() {
         }, 1000)
     })
 }
+
+function get_ready_response(){
+    return new Promise(function(resolve) {
+        responsiveVoice.speak("Are you ready?")
+        $("#dialog").dialog("open");
+        console.log(new Date)
+        let clear_response_wait = setInterval(function get_response(){
+            console.log(new Date)
+            recognition.start();
+            recognition.onresult = function(event) {
+                // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
+                // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
+                // It has a getter so it can be accessed like an array
+                // The [last] returns the SpeechRecognitionResult at the last position.
+                // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
+                // These also have getters so they can be accessed like arrays.
+                // The [0] returns the SpeechRecognitionAlternative at position 0.
+                // We then return the transcript property of the SpeechRecognitionAlternative object
+
+                var last = event.results.length - 1;
+                var prompt = event.results[last][0].transcript;
+
+
+                document.getElementById("prompt").textContent = 'Result received: ' + prompt + '. Includes Yes or Ready?  ' + ["yes","ready"].includes(prompt);
+                console.log("prompt: " + prompt)
+                if (["yes","ready"].includes(prompt)){
+                    console.log("close prompt: " + new Date);
+                    recognition.stop();
+                    $("#dialog").dialog("close");
+                    clearInterval(clear_response_wait);
+                    return resolve("Ready Response Recieved")
+                } else{
+                    console.log("Need a ready response!" + new Date)
+                    responsiveVoice.speak("We did not recognize your response, please say ready when you are ready to start your workout.")
+                }
+
+                console.log('Confidence: ' + event.results[0][0].confidence);
+            } //recognition on result
+
+        }, 5000) // setInterval
+    }) // promise
+} //get_ready_response
+$( "#dialog" ).dialog({
+    autoOpen: false,
+    show: {
+        effect: "blind",
+        duration: 0
+    },
+    hide: {
+        effect: "explode",
+        duration: 1000
+    }
+});

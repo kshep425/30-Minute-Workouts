@@ -14,6 +14,7 @@ $(document).ready(function() {
         $("#work_out_page").css({ "display": "block" })
         $("#profile").hide();
         $("#start").hide();
+        $("#header").hide();
         save_profile();
         stop_sound('start_audio');
         progress();
@@ -48,7 +49,7 @@ $("#logo").effect("scale", options, 5000);
         load_profile();
     }, 5000)
 // }
-    
+
     wger_query("exerciseimage", img_query_data);
 
 // JQuery for functional dropdown on Navbar
