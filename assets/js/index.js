@@ -5,8 +5,7 @@ try {
     var SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList
     var SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent
 
-}
-catch (e) {
+} catch (e) {
     console.error(e);
     $('.no-browser-support').show();
     $('.app').hide();
@@ -35,9 +34,9 @@ const wger_api = {
  *  For endpoint 'exercise/id': format and status;
  */
 const exercise_query_data = {
-    format: "json"
-}
-//image query data
+        format: "json"
+    }
+    //image query data
 const img_query_data = {
     language: "2",
     limit: '204'
@@ -47,21 +46,21 @@ const img_query_data = {
  * Get exercises using wger_query
  * @param {string} endpoint
  */
-const wger_query = function (endpoint, data = exercise_query_data) {
+const wger_query = function(endpoint, data = exercise_query_data) {
 
     $.ajax({
-        beforeSend: function (xhr) {
+        beforeSend: function(xhr) {
             xhr.setRequestHeader("Authorization", "Token " + wger_api.key);
             xhr.setRequestHeader("Accept", "application/json;indent=4")
         },
         url: wger_api.uri + endpoint,
         data: data,
         method: "GET"
-    }).then(function (response) {
+    }).then(function(response) {
         console.log(response);
 
         if (endpoint.includes("exerciseimage")) {
-            response.results.forEach(function (image) {
+            response.results.forEach(function(image) {
                 let img_holder = $('<img>');
                 img_holder.attr('src', image.image);
                 img_holder.attr('width', '200px');
@@ -74,7 +73,7 @@ const wger_query = function (endpoint, data = exercise_query_data) {
         } else {
             set_exercises(response);
         }
-    }).fail(function (err) {
+    }).fail(function(err) {
         console.log("Query Failed!")
         console.log(err)
         alert("Query Failed!")
@@ -116,7 +115,7 @@ async function set_exercises(exercise) {
  * Create a sound object using the sound constructor
  * @param {*} src path to sound
  */
-let play_sound = function (song_audio) {
+let play_sound = function(song_audio) {
     let m = document.getElementById(song_audio)
     m.play();
     return true;
@@ -328,6 +327,7 @@ function load_profile() {
 
 function progress() {
     sec = 0;
+
     var proBar = setInterval(function() {
         let i = sec / (total_workout_time)
         $("#progress_bar").attr("value", i);
@@ -405,7 +405,7 @@ async function voiceEndCallback() {
         console.log("Responsive mode is: " + responsive_mode)
         if (responsive_mode) {
             // open dialog and wait for ready response
-            await get_ready_response().then(function (response) {
+            await get_ready_response().then(function(response) {
                 console.log(response)
 
                 start_exercise_timers_and_music()
@@ -430,15 +430,15 @@ async function start_exercise_timers_and_music() {
     exercise_started = true
     console.log("start_exercise_timers_and_music")
     console.log(new Date)
-    // restart total_workout_timer
+        // restart total_workout_timer
     display_total_workout_time();
     // start interval_timer
     display_time(interval_time, "#exercise_timer_section");
     // play music
     play_sound(exercise_music)
-    await sleep(interval_time).then(async function () {
+    await sleep(interval_time).then(async function() {
         console.log(new Date)
-        // display break_time
+            // display break_time
         its_break_time(break_time)
         await sleep(break_time).then(() => {
             console.log(new Date)
@@ -468,8 +468,8 @@ function display_total_workout_time() {
 function wait_for_exercise_start_and_finish() {
     let s = 0
     console.log("Wait for exercise start and finish: " + new Date)
-    return new Promise(function (resolve) {
-        let ex_and_break_wait = setInterval(async function () {
+    return new Promise(function(resolve) {
+        let ex_and_break_wait = setInterval(async function() {
             // Set a variable to know the exercise has started
             if (exercise_started === true) {
                 s = 1;
@@ -496,49 +496,49 @@ function wait_for_exercise_start_and_finish() {
 
 function get_ready_response() {
     console.log("get_ready_response")
-    return new Promise(function (resolve) {
-        responsiveVoice.speak("Are you ready?")
-        $("#dialog").dialog("open");
-        console.log(new Date)
-        let clear_response_wait = setInterval(function get_response() {
-            console.log("Start voice recognition " + new Date);
-            recognition.start();
-            recognition.onresult = function (event) {
-                // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
-                // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
-                // It has a getter so it can be accessed like an array
-                // The [last] returns the SpeechRecognitionResult at the last position.
-                // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
-                // These also have getters so they can be accessed like arrays.
-                // The [0] returns the SpeechRecognitionAlternative at position 0.
-                // We then return the transcript property of the SpeechRecognitionAlternative object
+    return new Promise(function(resolve) {
+            responsiveVoice.speak("Are you ready?")
+            $("#dialog").dialog("open");
+            console.log(new Date)
+            let clear_response_wait = setInterval(function get_response() {
+                    console.log("Start voice recognition " + new Date);
+                    recognition.start();
+                    recognition.onresult = function(event) {
+                            // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
+                            // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
+                            // It has a getter so it can be accessed like an array
+                            // The [last] returns the SpeechRecognitionResult at the last position.
+                            // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
+                            // These also have getters so they can be accessed like arrays.
+                            // The [0] returns the SpeechRecognitionAlternative at position 0.
+                            // We then return the transcript property of the SpeechRecognitionAlternative object
 
-                var last = event.results.length - 1;
-                var prompt = event.results[last][0].transcript;
+                            var last = event.results.length - 1;
+                            var prompt = event.results[last][0].transcript;
 
 
-                document.getElementById("prompt").textContent = 'Result received: ' + prompt + '. Includes Yes or Ready?  ' + ["yes", "ready"].includes(prompt);
-                console.log("prompt: " + prompt)
-                if (prompt.includes("yes") || prompt.includes("ready")) {
-                    console.log("close prompt: " + new Date);
-                    recognition.stop();
-                    $("#dialog").dialog("close");
-                    document.getElementById("prompt").textContent = "";
-                    clearInterval(clear_response_wait);
-                    return resolve("Ready Response Recieved")
-                } else {
-                    console.log("Need a ready response!" + new Date)
-                    responsiveVoice.speak("We did not recognize your response, please say ready when you are ready to start your workout.")
-                    clearInterval(clear_response_ready);
-                    return get_ready_response()
-                }
+                            document.getElementById("prompt").textContent = 'Result received: ' + prompt + '. Includes Yes or Ready?  ' + ["yes", "ready"].includes(prompt);
+                            console.log("prompt: " + prompt)
+                            if (prompt.includes("yes") || prompt.includes("ready")) {
+                                console.log("close prompt: " + new Date);
+                                recognition.stop();
+                                $("#dialog").dialog("close");
+                                document.getElementById("prompt").textContent = "";
+                                clearInterval(clear_response_wait);
+                                return resolve("Ready Response Recieved")
+                            } else {
+                                console.log("Need a ready response!" + new Date)
+                                responsiveVoice.speak("We did not recognize your response, please say ready when you are ready to start your workout.")
+                                clearInterval(clear_response_ready);
+                                return get_ready_response()
+                            }
 
-                console.log('Confidence: ' + event.results[0][0].confidence);
-            } //recognition on result
+                            console.log('Confidence: ' + event.results[0][0].confidence);
+                        } //recognition on result
 
-        }, 2000) // setInterval
-        recognition.stop()
-    }) // promise
+                }, 2000) // setInterval
+            recognition.stop()
+        }) // promise
 } //get_ready_response
 
 $("#dialog").dialog({
@@ -553,6 +553,13 @@ $("#dialog").dialog({
     }
 });
 
+// Refresh button
+var refreshBtn = $('#refresh');
+refreshBtn.on('click', function() {
+    location.reload(true);
+
+});
+
 function motivation_images() {
 
     // get the queryURL iwht a api key looking for tag=unicorn using random
@@ -564,20 +571,20 @@ function motivation_images() {
         method: "GET"
     })
 
-        // Handle the response after the request
-        .then(function (response) {
+    // Handle the response after the request
+    .then(function(response) {
 
-            // get the image URL from response.data
-            var imageUrl = response.data.image_original_url;
+        // get the image URL from response.data
+        var imageUrl = response.data.image_original_url;
 
-            // create an image tag DOM element, this auto closes
-            var motivation_gif = $("<img>");
+        // create an image tag DOM element, this auto closes
+        var motivation_gif = $("<img>");
 
-            // add source and alt tag attributes
-            motivation_gif.attr("src", imageUrl);
-            motivation_gif.attr("alt", "boss image");
-            $("#motivation_images").empty()
+        // add source and alt tag attributes
+        motivation_gif.attr("src", imageUrl);
+        motivation_gif.attr("alt", "boss image");
+        $("#motivation_images").empty()
             // add unicorn image to top of images area div.
-            $("#motivation_images").append(motivation_gif);
-        })
-    }
+        $("#motivation_images").append(motivation_gif);
+    })
+}
