@@ -1,6 +1,5 @@
 .main {
     background-image: url("../Images/brickwall/brickwall.png");
-
 }
 
 h1, h2, h3, h4, p {
@@ -111,7 +110,7 @@ input {
 .logo_column {
     min-width: 50px;
     min-height: fit-content;
-    
+
 }
 
 @media only screen and (max-width: 760px) {
