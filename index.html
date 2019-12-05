@@ -15,36 +15,37 @@
     <section class="hero is-primary is-small has-text-justified splash main" id="header">
         <div class="hero-body">
             <div class="container columns">
-                <div class="column">
+                <div class="column is-mobile">
                     <img src="./assets/Images/logo/Standard Logo Files/Original.png" id="logo" alt="logo">
                 </div>
-
-                <div class="column">
-                    <h1 class="title">
-                        30 Minute Workout!
-                    </h1>
-
-                    <h2 class="subtitle">
-                        Survival of the Fittest
-                    </h2>
-                </div>
             </div>
+         <div class="column">
+             <h1 class="title has-text-grey-dark has-text-centered">
+                 30 Minute Workout!
+             </h1>
+
+             <h2 class="subtitle has-text-grey-dark has-text-centered">
+                 Survival of the Fittest
+             </h2>
+         </div>
     </section>
     <section id="links">
+      
         <!-- Code for the Navbar -->
         <nav class="navbar is-primary" role="navigate" aria-label="main-navigation">
                     <div class="navbar-brand">
                         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-                            data-target="navBasicExample">
+                            data-target="navBasic">
                             <span aria-hidden="true"></span>
                             <span aria-hidden="true"></span>
                             <span aria-hidden="true"></span>
 
                         </a>
                     </div>
-                    <div id="navbarBasicExample" class="navbar-menu is active">
+                    <div id="navbarBasic" class="navbar-menu is active">
                         <div class="navbar-start">
-                                <a href="nutrition.html" class="navbar-item" id="nutrition_link">Meal Plan</a>
+                                <a href="nutrition.html" class="navbar-item has-text-grey-darker" id="nutrition_link">Meal Plan</a>
+                                <a href="" class="navbar-item has-text-grey-dark" id="challenge_link">Challenge a Friend</a>
                         </div>
                     </div>
 
@@ -80,7 +81,8 @@
             </select>
             <button type="submit" value="Save" id="save_profile">Save</button>
         </form>
-        <button class="button is primary is rounded" type="input" id="start">Start Workout!</button>
+        <button class="button is-primary is-outlined is-rounded" type="input" id="start">Start Workout!</button>
+      
         <br>
     </section>
 
@@ -159,6 +161,7 @@
     </section>
 
     <!-- JQuery -->
+
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
         </script>
@@ -170,12 +173,8 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
-
     <!-- Responsive Voice -->
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=F7QN4dxF"></script>
-
-
 
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/script.js"></script>
