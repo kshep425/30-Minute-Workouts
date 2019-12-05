@@ -328,9 +328,8 @@ function load_profile() {
 
 function progress() {
     sec = 0;
-
-    var proBar = setInterval(function () {
-        let i = sec / (total_workout_time * 60)
+    var proBar = setInterval(function() {
+        let i = sec / (total_workout_time)
         $("#progress_bar").attr("value", i);
         //console.log($("#progress_bar").attr("value"));
         if (i >= 1) {
