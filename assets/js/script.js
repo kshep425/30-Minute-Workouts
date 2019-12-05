@@ -51,4 +51,10 @@ $("#logo").effect("scale", options, 5000);
     
     wger_query("exerciseimage", img_query_data);
 
+// JQuery for functional dropdown on Navbar
+$(".navbar-burger").click(function() {
+    $(".navbar-burger").toggleClass("is-active");
+    $(".navbar-menu").toggleClass("is-active");
+})
+
 });
