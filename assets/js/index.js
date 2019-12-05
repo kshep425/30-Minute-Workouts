@@ -322,6 +322,7 @@ function load_profile() {
     $("#profile").show()
     $("#links").show()
     $("#logo").addClass("nav_logo")
+    motivation_images();
 }
 
 function progress() {
@@ -539,6 +540,7 @@ function get_ready_response() {
             recognition.stop()
         }) // promise
 } //get_ready_response
+
 $("#dialog").dialog({
     autoOpen: false,
     show: {
@@ -552,8 +554,37 @@ $("#dialog").dialog({
 });
 
 // Refresh button
-var refreshBtn = $('#new');
+var refreshBtn = $('#refresh');
 refreshBtn.on('click', function() {
     location.reload(true);
 
 });
+
+function motivation_images() {
+
+    // get the queryURL iwht a api key looking for tag=unicorn using random
+    var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=motivation";
+
+    // GET Query Request
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
+
+    // Handle the response after the request
+    .then(function(response) {
+
+        // get the image URL from response.data
+        var imageUrl = response.data.image_original_url;
+
+        // create an image tag DOM element, this auto closes
+        var motivation_gif = $("<img>");
+
+        // add source and alt tag attributes
+        motivation_gif.attr("src", imageUrl);
+        motivation_gif.attr("alt", "boss image");
+        $("#motivation_images").empty()
+            // add unicorn image to top of images area div.
+        $("#motivation_images").append(motivation_gif);
+    })
+}
