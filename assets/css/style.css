@@ -109,7 +109,7 @@ input {
 
 .logo_column {
     min-width: 50px;
-    min-height: fit-content;
+    min-height: 50px;
 
 }
 
