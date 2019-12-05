@@ -3,17 +3,17 @@ try {
     var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     var recognition = new SpeechRecognition();
     var SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList
-  var SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent
+    var SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent
 
-  }
-  catch(e) {
+}
+catch (e) {
     console.error(e);
     $('.no-browser-support').show();
     $('.app').hide();
-  }
+}
 
 
-var prompts = ['yes','ready'];
+var prompts = ['yes', 'ready'];
 var grammar = '#JSGF V1.0; grammar prompts; public <color> = ' + prompts.join(' | ') + ' ;'
 
 var recognition = new SpeechRecognition();
@@ -35,9 +35,9 @@ const wger_api = {
  *  For endpoint 'exercise/id': format and status;
  */
 const exercise_query_data = {
-        format: "json"
-    }
-    //image query data
+    format: "json"
+}
+//image query data
 const img_query_data = {
     language: "2",
     limit: '204'
@@ -47,21 +47,21 @@ const img_query_data = {
  * Get exercises using wger_query
  * @param {string} endpoint
  */
-const wger_query = function(endpoint, data = exercise_query_data) {
+const wger_query = function (endpoint, data = exercise_query_data) {
 
     $.ajax({
-        beforeSend: function(xhr) {
+        beforeSend: function (xhr) {
             xhr.setRequestHeader("Authorization", "Token " + wger_api.key);
             xhr.setRequestHeader("Accept", "application/json;indent=4")
         },
         url: wger_api.uri + endpoint,
         data: data,
         method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
         console.log(response);
 
         if (endpoint.includes("exerciseimage")) {
-            response.results.forEach(function(image) {
+            response.results.forEach(function (image) {
                 let img_holder = $('<img>');
                 img_holder.attr('src', image.image);
                 img_holder.attr('width', '200px');
@@ -74,7 +74,7 @@ const wger_query = function(endpoint, data = exercise_query_data) {
         } else {
             set_exercises(response);
         }
-    }).fail(function(err) {
+    }).fail(function (err) {
         console.log("Query Failed!")
         console.log(err)
         alert("Query Failed!")
@@ -91,7 +91,7 @@ async function set_exercises(exercise) {
     $("#exercise_name").text(ex.name)
     $("#workout_description").text("Workout Description")
     $("#exercise_description").html(ex.description)
-    if (ex.embed){
+    if (ex.embed) {
         embed = $("#embed").html(ex.embed)
         $("#embed").show()
     }
@@ -116,7 +116,7 @@ async function set_exercises(exercise) {
  * Create a sound object using the sound constructor
  * @param {*} src path to sound
  */
-let play_sound = function(song_audio) {
+let play_sound = function (song_audio) {
     let m = document.getElementById(song_audio)
     m.play();
     return true;
@@ -320,15 +320,16 @@ function load_profile() {
         $("#last_workout_year").hide()
         $("#play_description").val(profile.play_description)
     }
-        $("#profile").show()
-        $("#links").show()
-        $("#logo").addClass("nav_logo")
+    $("#profile").show()
+    $("#links").show()
+    $("#logo").addClass("nav_logo")
+    motivation_images();
 }
 
 function progress() {
     sec = 0;
 
-    var proBar = setInterval(function() {
+    var proBar = setInterval(function () {
         let i = sec / (total_workout_time * 60)
         $("#progress_bar").attr("value", i);
         //console.log($("#progress_bar").attr("value"));
@@ -405,7 +406,7 @@ async function voiceEndCallback() {
         console.log("Responsive mode is: " + responsive_mode)
         if (responsive_mode) {
             // open dialog and wait for ready response
-            await get_ready_response().then(function(response){
+            await get_ready_response().then(function (response) {
                 console.log(response)
 
                 start_exercise_timers_and_music()
@@ -430,15 +431,15 @@ async function start_exercise_timers_and_music() {
     exercise_started = true
     console.log("start_exercise_timers_and_music")
     console.log(new Date)
-        // restart total_workout_timer
+    // restart total_workout_timer
     display_total_workout_time();
     // start interval_timer
     display_time(interval_time, "#exercise_timer_section");
     // play music
     play_sound(exercise_music)
-    await sleep(interval_time).then(async function() {
+    await sleep(interval_time).then(async function () {
         console.log(new Date)
-            // display break_time
+        // display break_time
         its_break_time(break_time)
         await sleep(break_time).then(() => {
             console.log(new Date)
@@ -468,14 +469,14 @@ function display_total_workout_time() {
 function wait_for_exercise_start_and_finish() {
     let s = 0
     console.log("Wait for exercise start and finish: " + new Date)
-    return new Promise(function(resolve) {
-        let ex_and_break_wait = setInterval(async function() {
+    return new Promise(function (resolve) {
+        let ex_and_break_wait = setInterval(async function () {
             // Set a variable to know the exercise has started
             if (exercise_started === true) {
                 s = 1;
 
                 // End workout if it is_break_time is true and total_workout_time_left is 0.
-                if(is_break_time === true && total_workout_time_left <= 0){
+                if (is_break_time === true && total_workout_time_left <= 0) {
                     console.log(("Workout complete: " + new Date))
                     clearInterval(ex_and_break_wait)
                     return resolve("Workout complete: " + new Date)
@@ -494,16 +495,16 @@ function wait_for_exercise_start_and_finish() {
     })
 }
 
-function get_ready_response(){
+function get_ready_response() {
     console.log("get_ready_response")
-    return new Promise(function(resolve) {
+    return new Promise(function (resolve) {
         responsiveVoice.speak("Are you ready?")
         $("#dialog").dialog("open");
         console.log(new Date)
-        let clear_response_wait = setInterval(function get_response(){
+        let clear_response_wait = setInterval(function get_response() {
             console.log("Start voice recognition " + new Date);
             recognition.start();
-            recognition.onresult = function(event) {
+            recognition.onresult = function (event) {
                 // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
                 // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
                 // It has a getter so it can be accessed like an array
@@ -517,16 +518,16 @@ function get_ready_response(){
                 var prompt = event.results[last][0].transcript;
 
 
-                document.getElementById("prompt").textContent = 'Result received: ' + prompt + '. Includes Yes or Ready?  ' + ["yes","ready"].includes(prompt);
+                document.getElementById("prompt").textContent = 'Result received: ' + prompt + '. Includes Yes or Ready?  ' + ["yes", "ready"].includes(prompt);
                 console.log("prompt: " + prompt)
-                if (prompt.includes("yes") || prompt.includes("ready")){
+                if (prompt.includes("yes") || prompt.includes("ready")) {
                     console.log("close prompt: " + new Date);
                     recognition.stop();
                     $("#dialog").dialog("close");
                     document.getElementById("prompt").textContent = "";
                     clearInterval(clear_response_wait);
                     return resolve("Ready Response Recieved")
-                } else{
+                } else {
                     console.log("Need a ready response!" + new Date)
                     responsiveVoice.speak("We did not recognize your response, please say ready when you are ready to start your workout.")
                     clearInterval(clear_response_ready);
@@ -537,10 +538,11 @@ function get_ready_response(){
             } //recognition on result
 
         }, 2000) // setInterval
-    recognition.stop()
+        recognition.stop()
     }) // promise
 } //get_ready_response
-$( "#dialog" ).dialog({
+
+$("#dialog").dialog({
     autoOpen: false,
     show: {
         effect: "blind",
@@ -551,3 +553,32 @@ $( "#dialog" ).dialog({
         duration: 1000
     }
 });
+
+function motivation_images() {
+
+    // get the queryURL iwht a api key looking for tag=unicorn using random
+    var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=motivation";
+
+    // GET Query Request
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
+
+        // Handle the response after the request
+        .then(function (response) {
+
+            // get the image URL from response.data
+            var imageUrl = response.data.image_original_url;
+
+            // create an image tag DOM element, this auto closes
+            var motivation_gif = $("<img>");
+
+            // add source and alt tag attributes
+            motivation_gif.attr("src", imageUrl);
+            motivation_gif.attr("alt", "boss image");
+            $("#motivation_images").empty()
+            // add unicorn image to top of images area div.
+            $("#motivation_images").append(motivation_gif);
+        })
+    }
