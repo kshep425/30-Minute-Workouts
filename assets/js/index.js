@@ -291,7 +291,15 @@ function load_profile() {
         $("#last_workout_month").hide()
         $("#last_workout_day").hide()
         $("#last_workout_year").hide()
+<<<<<<< HEAD
+<<<<<<< HEAD
+        
+=======
         $("#play_description").val(profile.play_description)
+>>>>>>> c1deba1881930f9d04cb4f6cce36953c3ad7fb43
+=======
+        $("#play_description").val(profile.play_description)
+>>>>>>> c2234e3a364f26585b00943a903deef0d960e41f
     }
         $("#profile").show()
         $("#links").show()

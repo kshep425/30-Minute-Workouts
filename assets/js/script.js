@@ -42,7 +42,7 @@ $(document).ready(function() {
     })
     var options = {to: {width: 55, height: 55}};
     // var options = {percent: 50}};
-$("#logo").effect("scale", options, 1000);
+$("#logo").effect("scale", options, 5000);
 
 // function timeout(){
     setTimeout(()=>{
@@ -51,5 +51,11 @@ $("#logo").effect("scale", options, 1000);
 // }
 
     wger_query("exerciseimage", img_query_data);
+
+// JQuery for functional dropdown on Navbar
+$(".navbar-burger").click(function() {
+    $(".navbar-burger").toggleClass("is-active");
+    $(".navbar-menu").toggleClass("is-active");
+})
 
 });
