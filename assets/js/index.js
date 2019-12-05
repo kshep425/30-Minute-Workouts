@@ -3,17 +3,16 @@ try {
     var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     var recognition = new SpeechRecognition();
     var SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList
-  var SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent
+    var SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent
 
-  }
-  catch(e) {
+} catch (e) {
     console.error(e);
     $('.no-browser-support').show();
     $('.app').hide();
-  }
+}
 
 
-var prompts = ['yes','ready'];
+var prompts = ['yes', 'ready'];
 var grammar = '#JSGF V1.0; grammar prompts; public <color> = ' + prompts.join(' | ') + ' ;'
 
 var recognition = new SpeechRecognition();
@@ -91,7 +90,7 @@ async function set_exercises(exercise) {
     $("#exercise_name").text(ex.name)
     $("#workout_description").text("Workout Description")
     $("#exercise_description").html(ex.description)
-    if (ex.embed){
+    if (ex.embed) {
         embed = $("#embed").html(ex.embed)
         $("#embed").show()
     }
@@ -320,9 +319,9 @@ function load_profile() {
         $("#last_workout_year").hide()
         $("#play_description").val(profile.play_description)
     }
-        $("#profile").show()
-        $("#links").show()
-        $("#logo").addClass("nav_logo")
+    $("#profile").show()
+    $("#links").show()
+    $("#logo").addClass("nav_logo")
 }
 
 function progress() {
@@ -405,7 +404,7 @@ async function voiceEndCallback() {
         console.log("Responsive mode is: " + responsive_mode)
         if (responsive_mode) {
             // open dialog and wait for ready response
-            await get_ready_response().then(function(response){
+            await get_ready_response().then(function(response) {
                 console.log(response)
 
                 start_exercise_timers_and_music()
@@ -475,7 +474,7 @@ function wait_for_exercise_start_and_finish() {
                 s = 1;
 
                 // End workout if it is_break_time is true and total_workout_time_left is 0.
-                if(is_break_time === true && total_workout_time_left <= 0){
+                if (is_break_time === true && total_workout_time_left <= 0) {
                     console.log(("Workout complete: " + new Date))
                     clearInterval(ex_and_break_wait)
                     return resolve("Workout complete: " + new Date)
@@ -494,50 +493,50 @@ function wait_for_exercise_start_and_finish() {
     })
 }
 
-function get_ready_response(){
+function get_ready_response() {
     console.log("get_ready_response")
     return new Promise(function(resolve) {
-        responsiveVoice.speak("Are you ready?")
-        $("#dialog").dialog("open");
-        console.log(new Date)
-        let clear_response_wait = setInterval(function get_response(){
-            console.log("Start voice recognition " + new Date);
-            recognition.start();
-            recognition.onresult = function(event) {
-                // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
-                // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
-                // It has a getter so it can be accessed like an array
-                // The [last] returns the SpeechRecognitionResult at the last position.
-                // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
-                // These also have getters so they can be accessed like arrays.
-                // The [0] returns the SpeechRecognitionAlternative at position 0.
-                // We then return the transcript property of the SpeechRecognitionAlternative object
+            responsiveVoice.speak("Are you ready?")
+            $("#dialog").dialog("open");
+            console.log(new Date)
+            let clear_response_wait = setInterval(function get_response() {
+                    console.log("Start voice recognition " + new Date);
+                    recognition.start();
+                    recognition.onresult = function(event) {
+                            // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
+                            // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
+                            // It has a getter so it can be accessed like an array
+                            // The [last] returns the SpeechRecognitionResult at the last position.
+                            // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
+                            // These also have getters so they can be accessed like arrays.
+                            // The [0] returns the SpeechRecognitionAlternative at position 0.
+                            // We then return the transcript property of the SpeechRecognitionAlternative object
 
-                var last = event.results.length - 1;
-                var prompt = event.results[last][0].transcript;
+                            var last = event.results.length - 1;
+                            var prompt = event.results[last][0].transcript;
 
 
-                document.getElementById("prompt").textContent = 'Result received: ' + prompt + '. Includes Yes or Ready?  ' + ["yes","ready"].includes(prompt);
-                console.log("prompt: " + prompt)
-                if (["yes","ready"].includes(prompt)){
-                    console.log("close prompt: " + new Date);
-                    recognition.stop();
-                    $("#dialog").dialog("close");
-                    clearInterval(clear_response_wait);
-                    return resolve("Ready Response Recieved")
-                } else{
-                    console.log("Need a ready response!" + new Date)
-                    responsiveVoice.speak("We did not recognize your response, please say ready when you are ready to start your workout.")
-                    return get_ready_response()
-                }
+                            document.getElementById("prompt").textContent = 'Result received: ' + prompt + '. Includes Yes or Ready?  ' + ["yes", "ready"].includes(prompt);
+                            console.log("prompt: " + prompt)
+                            if (["yes", "ready"].includes(prompt)) {
+                                console.log("close prompt: " + new Date);
+                                recognition.stop();
+                                $("#dialog").dialog("close");
+                                clearInterval(clear_response_wait);
+                                return resolve("Ready Response Recieved")
+                            } else {
+                                console.log("Need a ready response!" + new Date)
+                                responsiveVoice.speak("We did not recognize your response, please say ready when you are ready to start your workout.")
+                                return get_ready_response()
+                            }
 
-                console.log('Confidence: ' + event.results[0][0].confidence);
-            } //recognition on result
+                            console.log('Confidence: ' + event.results[0][0].confidence);
+                        } //recognition on result
 
-        }, 1000) // setInterval
-    }) // promise
+                }, 1000) // setInterval
+        }) // promise
 } //get_ready_response
-$( "#dialog" ).dialog({
+$("#dialog").dialog({
     autoOpen: false,
     show: {
         effect: "blind",
@@ -547,4 +546,11 @@ $( "#dialog" ).dialog({
         effect: "explode",
         duration: 1000
     }
+});
+
+// Refresh button
+var refreshBtn = $('#new');
+refreshBtn.on('click', function() {
+    location.reload(true);
+
 });

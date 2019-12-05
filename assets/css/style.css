@@ -2,7 +2,11 @@
     background-image: url("../Images/brickwall/brickwall.png");
 }
 
-h1, h2, h3, h4, p {
+h1,
+h2,
+h3,
+h4,
+p {
     text-align: center;
     color: black;
 }
@@ -15,12 +19,13 @@ h2 {
 #links {
     display: none;
 }
-#logo{
+
+#logo {
     position: absolute;
     margin: auto;
-
 }
-.nav_logo{
+
+.nav_logo {
     width: 40px;
     height: 40px;
     display: flex;
@@ -31,12 +36,11 @@ h2 {
     text-align: center;
     text-emphasis: bold;
     display: none;
-
 }
 
 #start-page {
     align-self: center;
-    width:100%;
+    width: 100%;
 }
 
 #start {
@@ -45,14 +49,14 @@ h2 {
 }
 
 button {
-    color:#00d1b2;
+    color: #00d1b2;
     margin: 10px;
 }
 
 form {
     margin-left: 30%;
     margin-right: 30%;
-    background-color:#00d1b2;
+    background-color: #00d1b2;
 }
 
 input {
@@ -65,9 +69,9 @@ input {
 }
 
 .exercise_timer_section {
-    font-size: 36; /*xx-large;*/
+    font-size: 36;
+    /*xx-large;*/
     font-style: oblique;
-
 }
 
 .total {
@@ -75,7 +79,9 @@ input {
     margin-inline-end: 2px;
 }
 
+
 /* Dialogue Styles */
+
 .ui-dialog {
     position: absolute;
     top: 0;
@@ -85,10 +91,12 @@ input {
     border: 2px solid white;
     background-color: #00d1b2;
 }
+
 .ui-dialog .ui-dialog-titlebar {
     padding: .4em 1em;
     position: relative;
 }
+
 .ui-dialog .ui-dialog-title {
     display: block;
     margin: .1em 0;
@@ -97,6 +105,7 @@ input {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .ui-dialog .ui-dialog-titlebar-close {
     position: absolute;
     right: 2px;
@@ -110,7 +119,11 @@ input {
 .logo_column {
     min-width: 50px;
     min-height: 50px;
+}
 
+#new {
+    margin-left: 14em;
+    margin-top: 1em;
 }
 
 @media only screen and (max-width: 760px) {
@@ -118,4 +131,4 @@ input {
         align-self: auto;
         margin-left: auto;
     }
-  }
+}
