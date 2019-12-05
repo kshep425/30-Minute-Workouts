@@ -15,11 +15,13 @@ h2 {
 #links {
     display: none;
 }
+
 #logo{
     position: absolute;
     margin: auto;
 
 }
+
 .nav_logo{
     width: 40px;
     height: 40px;

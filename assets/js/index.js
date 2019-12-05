@@ -519,22 +519,25 @@ function get_ready_response(){
 
                 document.getElementById("prompt").textContent = 'Result received: ' + prompt + '. Includes Yes or Ready?  ' + ["yes","ready"].includes(prompt);
                 console.log("prompt: " + prompt)
-                if (["yes","ready"].includes(prompt)){
+                if (prompt.includes("yes") || prompt.includes("ready")){
                     console.log("close prompt: " + new Date);
                     recognition.stop();
                     $("#dialog").dialog("close");
+                    document.getElementById("prompt").textContent = "";
                     clearInterval(clear_response_wait);
                     return resolve("Ready Response Recieved")
                 } else{
                     console.log("Need a ready response!" + new Date)
                     responsiveVoice.speak("We did not recognize your response, please say ready when you are ready to start your workout.")
+                    clearInterval(clear_response_ready);
                     return get_ready_response()
                 }
 
                 console.log('Confidence: ' + event.results[0][0].confidence);
             } //recognition on result
 
-        }, 1000) // setInterval
+        }, 2000) // setInterval
+    recognition.stop()
     }) // promise
 } //get_ready_response
 $( "#dialog" ).dialog({
