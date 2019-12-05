@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $("#start").click(function(event){
+    $("#start").click(function (event) {
         event.preventDefault()
         start_workout();
     })
@@ -16,7 +16,11 @@ $(document).ready(function () {
     let num_clicks = 0
     $(document).click(function (event) {
         if (num_clicks === 0) {
-            //play_sound('start_audio');
+            play_sound("start_audio");
+            responsiveVoice.speak("Welcome back to Survival of the Fittest.  Ready to Start your workout?")
+            setTimeout(() => {
+                responsive_ready()
+            }, 20000)
             num_clicks += 1
         }
         // Do not play start_audio if the start button is clicked
@@ -30,28 +34,18 @@ $(document).ready(function () {
 
     setTimeout(() => {
         load_profile();
-        play_sound('start_audio');
     }, 5000)
 
-    // setTimeout(() => {
-    //     console.log($("#play_mode").val())
-    //     let init_responsive = $("#play_mode").val() === "Responsive"
-    //     console.log(init_responsive)
-    //     if (init_responsive) {
-    //         let response = get_ready_response();
-    //         console.log("response: " + response)
-    //         if (response){
-    //             start_workout();
-    //         } else{
-    //             $("#dialog").dialog("close")
-    //             clearTimeout();
-    //         }
-    //     }
-    // }, 10000)
+    async function responsive_ready() {
+        console.log("async function responsive ready?")
+        await get_ready_response().then(function (result) {
+            start_workout()
+        })
+    }
 
     //   wger_query("exerciseimage", img_query_data);
 
-    function start_workout () {
+    function start_workout() {
         // Set the times after start_button is selected
         // demo_mode: 3 min total; 20 sec interval; 10 sec break;
         total_workout_time = ($($(":selected")[1]).attr("workout") === "demo") ? 180 : 90; //30 *60;
@@ -70,10 +64,10 @@ $(document).ready(function () {
         start_exercise();
     }
 
-// JQuery for functional dropdown on Navbar
-$(".navbar-burger").click(function() {
-    $(".navbar-burger").toggleClass("is-active");
-    $(".navbar-menu").toggleClass("is-active");
-})
+    // JQuery for functional dropdown on Navbar
+    $(".navbar-burger").click(function () {
+        $(".navbar-burger").toggleClass("is-active");
+        $(".navbar-menu").toggleClass("is-active");
+    })
 
 });
