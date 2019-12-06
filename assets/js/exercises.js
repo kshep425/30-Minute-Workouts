@@ -1,4 +1,4 @@
-var demo_exercises = [{
+const demo_exercises = [{
         id: 1000,
         name: "Jog in Place",
         description: "Switch lifting your legs up and down like you are jogging.",
