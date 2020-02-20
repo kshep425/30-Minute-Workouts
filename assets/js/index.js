@@ -94,8 +94,10 @@ async function set_exercises(exercise) {
         embed = $("#embed").html(ex.embed)
         $("#embed").show()
     }
-    $("#exercise_url").attr("src", ex.url);
-    $("#exercise_url").show();
+    if (ex.url) {
+        $("#exercise_url").attr("src", ex.url);
+        $("#exercise_url").show();
+    }
     $("#header").hide();
     //$("[exercise_id=" + img_id + "]").show();
 
@@ -494,13 +496,14 @@ function wait_for_exercise_start_and_finish() {
     })
 }
 
+var clear_response_wait;
 function get_ready_response() {
     console.log("get_ready_response")
     return new Promise(function(resolve) {
             responsiveVoice.speak("Are you ready?")
             $("#dialog").dialog("open");
             console.log(new Date)
-            let clear_response_wait = setInterval(function get_response() {
+            clear_response_wait = setInterval(function get_response() {
                     console.log("Start voice recognition " + new Date);
                     recognition.start();
                     recognition.onresult = function(event) {

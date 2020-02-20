@@ -21,6 +21,7 @@ Evidence based research shows that [30 minutes of exercise](https://www.genesisf
 * [Donald Hesler](https://www.linkedin.com/in/davishesler/)
 * [Jono Augustine](https://github.com/JonoAugustine)
 * Ravi Rashmi of The Hatter in Security Square Mall for Sweatshirt printing of logo p.graphics1@gmail.com
+
 ## Dependencies
 * [Wger Workout Manager API](https://wger.de/en/software/api)
 
