@@ -1,0 +1,28 @@
+{
+  "name": "30-Minute-Workouts",
+  "version": "1.0.0",
+  "description": "30 Minute Workouts help you maintain your fitness goals.  Choose the level of intensity and the type of music you want to play and we'll do the rest!",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "seed": "node seeders/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kshep425/30-Minute-Workouts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kshep425/30-Minute-Workouts/issues"
+  },
+  "homepage": "https://github.com/kshep425/30-Minute-Workouts#readme"
+}

@@ -70,4 +70,25 @@ $(document).ready(function () {
         $(".navbar-menu").toggleClass("is-active");
     })
 
+    function load_workouts() {
+        console.log("load workouts from db")
+        let workouts = $("#workouts")
+        workouts.append("<option workout='create_new'>Create New Workout</option>")
+        console.log(workouts)
+        fetch("/api/workout_names")
+            .then(res => res.json())
+            .then(data => {
+                console.log(typeof (data))
+                console.log(data)
+                data.forEach((w) => {
+                    console.log(w.workout_name)
+                    workouts.append(`<option workout=${w.workout_name}>${w.workout_name}</option>`)
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    load_workouts()
 });
