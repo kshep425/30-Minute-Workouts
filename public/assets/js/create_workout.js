@@ -131,11 +131,6 @@ $(document).ready(() => {
         }
     })
 
-    function open_modal(modal_id) {
-        console.log($("#" + modal_id))
-        $("#" + modal_id).dialog("open")
-    }
-
     $("#sortable").sortable({
         placeholder: "ui-state-highlight",
         cursor: "move",
@@ -145,5 +140,31 @@ $(document).ready(() => {
     $("#sortable").disableSelection();
 
     console.log($("#sortable"))
+
+    // add workouts to dropdowns
+    function add_workouts() {
+        console.log("load workouts from db")
+        let workouts = $("#workout_name_dropdown")
+        fetch("/api/workout_names")
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                data.forEach((w) => {
+                    console.log(w.workoutName)
+                    let option = $("<option>")
+                    option.data({wo_id: w._id})
+                    option.data({wo_name: w.workoutName})
+                    option.data({wo_obj: w})
+                    option.text(w.workoutName)
+                    console.log(option)
+                    workouts.append(option)
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    add_workouts()
 
 })
