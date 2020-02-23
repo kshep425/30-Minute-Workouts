@@ -48,8 +48,8 @@ $(document).ready(function () {
     function start_workout() {
         // Set the times after start_button is selected
         // demo_mode: 3 min total; 20 sec interval; 10 sec break;
-        total_workout_time = ($($(":selected")[1]).attr("workout") === "demo") ? 180 : 90; //30 *60;
-        total_workout_time_left = ($($(":selected")[1]).attr("workout") === "demo") ? 180 : 90; //30 * 60;
+        total_workout_time = ($($(":selected")[1]).attr("workout") === "demo") ? 180 : (30 * 60);
+        total_workout_time_left = ($($(":selected")[1]).attr("workout") === "demo") ? 180 : (30 * 60);
         interval_time = parseInt($($(":selected")[1]).attr("interval_time"));
         break_time = parseInt($($(":selected")[1]).attr("break_time"));
         exercise_music = $($(":selected")[1]).attr("music");
@@ -70,4 +70,25 @@ $(document).ready(function () {
         $(".navbar-menu").toggleClass("is-active");
     })
 
+    function load_workouts() {
+        console.log("load workouts from db")
+        let workouts = $("#workouts")
+        workouts.append("<option workout='create_new'>Create New Workout</option>")
+        console.log(workouts)
+        fetch("/api/workout_names")
+            .then(res => res.json())
+            .then(data => {
+                console.log(typeof (data))
+                console.log(data)
+                data.forEach((w) => {
+                    console.log(w.workout_name)
+                    workouts.append(`<option data-workout_id=${w._id} data-workout=${w.workoutName}>${w.workoutName}</option>`)
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    load_workouts()
 });

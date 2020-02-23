@@ -59,10 +59,15 @@ form {
     background-color: #00d1b2;
 }
 
-input {
-    width: 40%;
+.create_form {
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
+.create_column {
+    margin-left: 10px;
+    margin-right: 10px;
+}
 #work_out_page {
     margin-left: auto;
     margin-right: auto;

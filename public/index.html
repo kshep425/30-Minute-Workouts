@@ -35,18 +35,30 @@
         <!-- Code for the Navbar -->
         <nav class="navbar is-primary" role="navigate" aria-label="main-navigation">
             <div class="navbar-brand">
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navBasic">
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                    data-target="navBasic">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
 
                 </a>
             </div>
+            <!-- Weather Section -->
             <div id="navbarBasic" class="navbar-menu is active">
                 <div class="navbar-start">
-                    <a href="https://nutritionfacts.org" target='_blank' class="navbar-item has-text-grey-darker" id="nutrition_link">Nutrtion Tips & Information</a>
+                    <a href="https://nutritionfacts.org" target='_blank' class="navbar-item has-text-grey-darker"
+                        id="nutrition_link">Nutrtion Tips & Information</a>
 
                 </div>
+                <form id="search_form" class="navbar-start" action="#">
+                    <div class="input-group mb-3">
+                        <input id="search_text" type="text" class="form-control" placeholder="Enter City"
+                            aria-label="Enter City" aria-describedby="search_button">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="submit" id="search_button">Search</button>
+                        </div>
+                    </div>
+                </form>
             </div>
 
         </nav>
@@ -68,7 +80,15 @@
                 <option workout="regular" interval_time=55 break_time=10 music="regular_audio">Hard, but doable</option>
                 <option workout="hard" interval_time=60 break_time=5 music="hard_audio">Kill me now!</option>
                 <option workout="demo" interval_time=26 break_time=10 music="demo_audio">Demo Mode</option>
-            </select><br>
+            </select>
+            <br>Select Workout</br>
+            <select type="text" name="text" id="workouts" class="profile_form">
+            </select>
+            <!-- <br>Working Out Outside?<br>
+            <select type="text" name="text" id="indoor-outdoor" class="profile_form">
+                <option>Indoor</option>
+                <option>Outdoor. What's the weather?</option>
+            </select> -->
             <br>Play Mode<br>
             <select type="text" name="text" id="play_mode" class="profile_form">
                 <option play_mode="autoplay">Autoplay</option>
@@ -82,10 +102,15 @@
             <button type="submit" value="Save" id="save_profile">Save</button>
         </form>
         <button class="button is-primary is-outlined is-rounded" type="input" id="start">Start Workout!</button>
+        <a href="/create">
 
+            <button class="button is-primary is-outlined is-rounded" type="input" id="create_workout_btn">Create New
+                Workout</button>
+        </a>
 
         <br>
     </section>
+    <!-- Weather Section -->
 
     <div id="work_out_page" hidden>
         <h1>Workout One</h1>
@@ -146,7 +171,8 @@
             <h1><b>GREAT JOB!!</b></h1>
             <div id="total_workouts_section">
                 <h2 id="total_workouts_text">You've completed <span id="total_consecutive_workouts" class="total"> 0
-                    </span> days of consective workouts and <span id="total_workouts" class="total"> 0 </span> total workouts!
+                    </span> days of consective workouts and <span id="total_workouts" class="total"> 0 </span> total
+                    workouts!
                 </h2>
                 <h2 id="last_workout_month" hidden></h2>
                 <h2 id="last_workout_day" hidden></h2>
@@ -161,13 +187,15 @@
             </div>
             <button class="button is-primary is-outlined is-rounded" type="input" id="refresh">New Workout</button>
 
+
         </div>
     </section>
 
     <!-- JQuery -->
 
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+        </script>
 
     <!-- JQUERY Voice Recognition -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -177,11 +205,19 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- Responsive Voice -->
-    <script src="https://code.responsivevoice.org/responsivevoice.js?key=F7QN4dxF"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=cW4ath8U"></script>
 
+    <!-- Weather Script -->
+    <!-- <script src="assets/js/weather_script.js"></script>
+    <script src="assets/js/weather_index.js"></script>
+    <script src="assets/js/weather_script_5_day.js"></script> -->
+
+    <!-- My Scripts -->
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/script.js"></script>
     <script src="./assets/js/exercises.js"></script>
+    <script src="./assets/js/create_workout.js"></script>
+
 </body>
 
 </html>
