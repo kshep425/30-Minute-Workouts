@@ -16,6 +16,18 @@ const db_queries = {
     get_exercises: ()=>{
         console.log("Get Exercises")
         return db.Exercise.find()
+    },
+
+    update_workout: (id, workout)=>{
+        console.log("Update Workout")
+        filter = { _id: id }
+        return db.Workout.findOneAndUpdate(filter,workout)
+    },
+
+    create_workout: (workout) =>
+    {
+        console.log("Create Workout")
+        return db.Workout.create(workout)
     }
 
 }
