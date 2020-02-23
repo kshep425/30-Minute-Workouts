@@ -167,4 +167,21 @@ $(document).ready(() => {
 
     add_workouts()
 
+    $("#workout_name_dropdown").change(function(){
+        console.log("workout_name changed")
+        const wo_name = $("#workout_name_dropdown option:selected").data("wo_name")
+        $("#save_wo_name").val(wo_name)
+        $(".ui-state-default").remove();
+        if(wo_name){
+            console.log("replace list in workout");
+            const wo_obj = $("#workout_name_dropdown option:selected").data("wo_obj")
+            wo_obj.exercises.forEach(exercise =>{
+                let li = $("<li>").text(exercise.name);
+                li.data({exercise: exercise})
+                li.addClass("ui-state-default")
+                $("#sortable").append(li)
+            })
+        }
+    })
+
 })
