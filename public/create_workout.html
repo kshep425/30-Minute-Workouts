@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="./assets/Images/logo/Standard Logo Files/Black on Transparent.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link href="assets/css/style.css" rel="stylesheet">
+    <title>30 Minute Workout</title>
+</head>
+
+<body>
+    <section class="hero is-primary is-small has-text-justified splash main" id="header">
+        <div class="hero-body">
+            <div class="container columns">
+                <div class="column logo_column">
+                    <img src="./assets/Images/logo/Standard Logo Files/Original.png" id="logo" alt="logo">
+                </div>
+            </div>
+            <div class="column">
+                <h1 class="title has-text-grey-dark has-text-centered">
+                    30 Minute Workout!
+                </h1>
+
+                <h2 class="subtitle has-text-grey-dark has-text-centered">
+                    Survival of the Fittest
+                </h2>
+            </div>
+        </div>
+    </section>
+    <section id="links">
+
+        <!-- Code for the Navbar -->
+        <nav class="navbar is-primary" role="navigate" aria-label="main-navigation">
+            <div class="navbar-brand">
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                    data-target="navBasic">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+
+                </a>
+            </div>
+            <!-- Weather Section -->
+            <div id="navbarBasic" class="navbar-menu is active">
+                <div class="navbar-start">
+                    <a href="https://nutritionfacts.org" target='_blank' class="navbar-item has-text-grey-darker"
+                        id="nutrition_link">Nutrtion Tips & Information</a>
+
+                </div>
+                <form id="search_form" class="navbar-start" action="#">
+                    <div class="input-group mb-3">
+                        <input id="search_text" type="text" class="form-control" placeholder="Enter City"
+                            aria-label="Enter City" aria-describedby="search_button">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="submit" id="search_button">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </nav>
+    </section>
+
+    <section>
+        <!-- Create Workout Form -->
+        <div class="columns">
+            <div class="column is-4 is-offset-4 create_column">
+                <form id="create_workout_form" class="create_form">
+                    <legend>
+
+                        <h2><b class="text-center">Create Workout Form</b></h2>
+
+                    </legend><br>
+                    <button class="button is-secondary is-outlined is-rounded" type="input" id="save_workout_btn">Save
+                        Workout</button>
+                    <button class="button is-secondary is-outlined is-rounded" type="input"
+                        id="save_new_workout_btn">Save New
+                        Workout</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- List of Exercises -->
+    <div id="list_of_exercises_div" class="container">
+        <legend>
+
+            <h2><b class="text-center">List of Exercises </b></h2>
+
+        </legend><br>
+    </div>
+
+    <!-- Create New Exercise Form -->
+    <section class="section">
+        <div id="create_exercise_div" class="container">
+            <form id="create_exercise_form" class="well form-horizontal create_form">
+                <!-- Form Name -->
+                <legend>
+
+                    <h2><b class="text-center">Create Exercise Form</b></h2>
+
+                </legend><br>
+                <div class="columns">
+                    <div class="column is-4 is-offset-4 create_column">
+                        <div class="field">
+                            <label class="label">Exercise Name</label>
+                            <div class="control">
+
+                                <input class="input" type="text" placeholder="Exercise Name" data-key="name"
+                                    id="save_ex_name">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Exercise Description</label>
+                            <div class="control">
+
+                                <textarea class="textarea" type="text" placeholder="Description of Exercise"
+                                    data-key="description" id="save_ex_desc"></textarea>
+
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">url</label>
+                            <div class="control">
+
+                                <input class="input" type="text" placeholder="Link to gif" data-key="url"
+                                    id="save_ex_url">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Category</label>
+                            <div class="control">
+
+                                <input class="input" type="text" placeholder="Category of Exercise" data-key="category"
+                                    id="save_ex_category">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">level</label>
+                            <div class="control">
+
+                                <input class="input" type="text" placeholder="Exercise Level of Difficulty"
+                                    data-key="level" id="save_ex_level">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label"># of Sets</label>
+                            <div class="control">
+
+                                <input class="input" type="text" placeholder="#of Sets" value="3" data-key="sets"
+                                    id="save_ex_sets">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label"># of Reps</label>
+                            <div class="control">
+
+                                <input class="input" type="text" placeholder="5" value="5" data-key="reps"
+                                    id="save_ex_reps">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Easy Interval Time (seconds)</label>
+                            <div class="control">
+
+                                <input class="input" type="text" placeholder="30" value="30"
+                                    data-key="easy_interval_time" id="save_ex_interval">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Rest (seconds)</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="30" value="30" data-key="rest"
+                                    id="save_ex_rest">
+                            </div>
+                        </div>
+
+                        <label class="checkbox">
+                            <input type="checkbox" data-key=switch id="save_ex_switch">
+                            Switch Sides?
+                        </label>
+
+
+                        <div class="field is-grouped">
+                            <p class="control">
+
+                                <button class="button is-secondary is-outlined is-rounded" type="input"
+                                    id="save_exercise_btn">Save Exercise</button>
+                            </p>
+                            <p class="control">
+
+                                <button class="button is-secondary is-outlined is-rounded" type="input"
+                                    id="save_new_exercise_btn">Save New Exercise</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- JQuery -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+        </script>
+
+    <!-- JQUERY UI -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <!-- My Scripts -->
+    <script src="./assets/js/create_workout.js"></script>
+</body>
+
+</html>

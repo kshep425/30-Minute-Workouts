@@ -15,6 +15,19 @@ function api_routes(app) {
         });
     });
 
+    app.post("/api/exercise", function (req, res) {
+        console.log("Create new exercise")
+        console.log(req.body)
+        db_queries.create_exercise(req.body)
+        .then((result)=>{
+            console.log(result)
+            res.json(result)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    })
+
 };
 
 module.exports = api_routes

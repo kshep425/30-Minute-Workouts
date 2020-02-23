@@ -6,17 +6,12 @@ const db_queries = {
     get_workouts: ()=>{
         console.log("Get Workouts")
         return db.Workout.find({});
-        // return db.getCollection('workouts').find({})
-        // db.Workout.find({}, function(err, res){
-        //     if(err){
-        //         console.log(err);
-        //         throw err;
-        //     }
-        //     console.log("Any workouts to print?")
-        //     console.log(res)
-        //     return res;
-        // })
+    },
+    create_exercise: (exercise) => {
+        console.log("Create Exercise");
+        return db.Exercise.create(exercise)
     }
+
 }
 
 module.exports = db_queries
