@@ -31,12 +31,34 @@ function api_routes(app) {
     app.get("/api/exercises", function(req, res){
         db_queries.get_exercises()
         .then((exercises)=>{
-            console.log(exercises)
+            console.log(exercises);
             res.json(exercises);
         })
         .catch((err)=>{
             console.log(err);
         });
+    })
+
+    app.patch("/api/workout/:id", function(req,res){
+        db_queries.update_workout(req.params.id, req.body)
+        .then((workout)=>{
+            console.log(workout);
+            res.json(workout);
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    })
+
+    app.post("/api/workout", function (req, res){
+        db_queries.create_workout(req.body)
+        .then((workout)=>{
+            console.log(workout)
+            res.json(workout);
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
     })
 
 };
