@@ -82,7 +82,7 @@ $(document).ready(function () {
                 console.log(data)
                 data.forEach((w) => {
                     console.log(w.workout_name)
-                    workouts.append(`<option workout=${w.workout_name}>${w.workout_name}</option>`)
+                    workouts.append(`<option data-workout_id=${w._id} data-workout=${w.workoutName}>${w.workoutName}</option>`)
                 })
             })
             .catch((err) => {

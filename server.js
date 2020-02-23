@@ -19,7 +19,7 @@ api_routes(app)
 var html_routes = require("./routes/html_routes.js")
 html_routes(app)
 
-mongoose.connect("mongodb://localhost/exercise", {useNewUrlParser: true})
+mongoose.connect("mongodb://localhost/workout", {useNewUrlParser: true})
 
 app.listen(PORT, function(){
     console.log("You are listening on port: " + PORT)
