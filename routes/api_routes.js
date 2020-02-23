@@ -28,6 +28,17 @@ function api_routes(app) {
         })
     })
 
+    app.get("/api/exercises", function(req, res){
+        db_queries.get_exercises()
+        .then((exercises)=>{
+            console.log(exercises)
+            res.json(exercises);
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+    })
+
 };
 
 module.exports = api_routes

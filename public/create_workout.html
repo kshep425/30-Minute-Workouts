@@ -6,8 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://kit.fontawesome.com/e48fbbe543.js" crossorigin="anonymous"></script>
     <link href="assets/css/style.css" rel="stylesheet">
     <title>30 Minute Workout</title>
 </head>
@@ -73,7 +72,15 @@
                     <legend>
 
                         <h2><b class="text-center">Create Workout Form</b></h2>
-
+                        <ul id="sortable">
+                            <li class="ui-state-default">Item 1</li>
+                            <li class="ui-state-default">Item 2</li>
+                            <li class="ui-state-default">Item 3</li>
+                            <li class="ui-state-default">Item 4</li>
+                            <li class="ui-state-default">Item 5</li>
+                            <li class="ui-state-default">Item 6</li>
+                            <li class="ui-state-default">Item 7</li>
+                          </ul>
                     </legend><br>
                     <button class="button is-secondary is-outlined is-rounded" type="input" id="save_workout_btn">Save
                         Workout</button>
@@ -86,14 +93,17 @@
     </section>
 
     <!-- List of Exercises -->
-    <div id="list_of_exercises_div" class="container">
-        <legend>
+    <section class="section">
+        <div id="list_of_exercises_div" class="container">
+            <article class="panel" id="list_of_exercises_panel">
+                <p class="panel-heading">
+                    List of Exercises
+                </p>
+            </article>
 
-            <h2><b class="text-center">List of Exercises </b></h2>
+        </div>
 
-        </legend><br>
-    </div>
-
+    </section>
     <!-- Create New Exercise Form -->
     <section class="section">
         <div id="create_exercise_div" class="container">
@@ -211,6 +221,7 @@
         </div>
     </section>
 
+
     <!-- JQuery -->
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"
@@ -221,9 +232,9 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
     <!-- My Scripts -->
     <script src="./assets/js/create_workout.js"></script>
+
 </body>
 
 </html>
